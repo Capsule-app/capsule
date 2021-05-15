@@ -11,6 +11,8 @@ const apolloServer = new ApolloServer({
   })
 });
 
+apolloServer.applyMiddleware({ app });
+
 app.listen(process.env.PORT || 5000, () => {
   console.log("Server started.");
 });
