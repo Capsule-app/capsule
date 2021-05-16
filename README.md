@@ -1,5 +1,5 @@
-# capsule
-🐬 Capsule - providing free speech with no limits
+# Capsule
+<strong>Providing free speech with no limits 🐬</strong>
 
 ## Structure
 | Codebase              |      Description          |
