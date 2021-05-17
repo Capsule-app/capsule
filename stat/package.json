@@ -4,18 +4,24 @@
   "private": true,
   "main": "dist/index.s",
   "scripts": {
-    "dev": "nodemon src/index.ts"
+    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/index.js",
+    "dev": "nodemon -r tsconfig-paths/register src/index.ts"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
+    "@types/pg": "^7.14.11",
     "nodemon": "^2.0.7",
+    "prettier": "^2.3.0",
     "ts-node": "^9.1.1",
-    "ts-node-dev": "^1.1.6",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^4.2.4"
   },
   "dependencies": {
+    "@zerollup/ts-transform-paths": "^1.7.18",
     "apollo-server-express": "^2.24.0",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
-    "graphql": "^15.5.0"
+    "graphql": "^15.5.0",
+    "pg": "^8.6.0"
   }
 }

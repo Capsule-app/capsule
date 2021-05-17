@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
-      "module": "commonjs",
-      "esModuleInterop": true,
-      "target": "es6",
-      "noImplicitAny": true,
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "outDir": "dist",
-      "baseUrl": ".",
-      "paths": {
-          "*": [
-              "node_modules/*"
-          ]
-      }
+    "baseUrl": "./",
+    "paths": {
+      "@root/*": ["src/*"],
+      "@resolvers/*": ["src/resolvers/*"]
+    },
+    "rootDir": "src",
+    "outDir": "dist",
+    "target": "ES2018",
+    "module": "commonjs",
+    "lib": ["ESNext"],
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declaration": true,
+    "skipLibCheck": true
   },
-  "include": [
-      "src/**/*"
-  ]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules"],
 }
