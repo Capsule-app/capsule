@@ -1,1 +1,15 @@
+# yarn v2
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+node_modules/
+
+.next
 .vscode
+next/build
+
+# macOS
+.DS_Store
