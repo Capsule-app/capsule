@@ -2,9 +2,9 @@
   "name": "@capsule/stat",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.s",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/index.js",
+    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register .",
     "dev": "nodemon -r tsconfig-paths/register src/index.ts"
   },
   "devDependencies": {
