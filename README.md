@@ -20,4 +20,4 @@
 - [ ] **Recreate API:** Rebuild Capsule API to allow it to be fully open source and publicly accessible <br>
 - [ ] **Design:** Finish designing website and implementing it with TailwindCSS <br>
 - [ ] **Beta Testing:** Fix bugs and implement any last minute features <br>
--[ ] **Release:** Release final production build with free sign-ups <br>
+- [ ] **Release:** Release final production build with free sign-ups <br>
