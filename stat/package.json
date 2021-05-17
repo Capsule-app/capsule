@@ -17,7 +17,6 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@zerollup/ts-transform-paths": "^1.7.18",
     "apollo-server-express": "^2.24.0",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
