@@ -9,9 +9,10 @@ node_modules/
 
 .next
 .vscode
-next/build
 .env
+api/ormconfig.json
 
 # macOS
 .DS_Store
-next/yarn-error.log
+
+yarn-error.log
