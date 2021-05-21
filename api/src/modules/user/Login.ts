@@ -1,26 +1,38 @@
-import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
-import bcrypt from "bcryptjs";
-//import jwt from "jsonwebtoken";
+import { ObjectType, Arg, Mutation, Resolver, Field, Ctx } from "type-graphql";
+import { compare } from "bcryptjs";
+import { createAccessToken, createRefreshToken } from "../../auth";
 
 import { User } from "../../entity/User";
-import { ReqContext } from "../../types/ReqContext";
+import { Context } from "../../types/Context";
+
+@ObjectType()
+class LoginResponse {
+  @Field()
+  accessToken: string;
+}
 
 @Resolver()
 export class LoginResolver {
-  @Mutation(() => User, { nullable: true })
+  @Mutation(() => LoginResponse)
   async login(
     @Arg("email") email: string,
     @Arg("password") password: string,
-    @Ctx() ctx: ReqContext
-  ): Promise<User | null> {
-    const user = await User.findOne({ where: { email }});
+    @Ctx() { req, res }: Context
+  ): Promise<LoginResponse | null> {
+    const user = await User.findOne({ where: { email } });
     if (!user) return null;
 
-    const valid = await bcrypt.compare(password, user.password);
+    const valid = await compare(password, user.password);
     if (!valid) return null;
 
-    ctx.req.session!.userId = user.id;
+    res.cookie("qid", createRefreshToken(user), {
+      httpOnly: true,
+    });
 
-    return user;
+    console.log(req);
+
+    return {
+      accessToken: createAccessToken(user),
+    };
   }
 }
