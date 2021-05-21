@@ -1,5 +1,6 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import bcrypt from "bcryptjs";
+import { nanoid } from 'nanoid'
 
 import { User } from "../../entity/User";
 import { RegisterInput } from "./register/RegisterInput";
@@ -22,7 +23,8 @@ export class RegisterResolver {
       username,
       bio,
       email,
-      password: hashed
+      password: hashed,
+      id: nanoid()
     }).save();
 
     return user;
