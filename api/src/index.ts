@@ -10,22 +10,25 @@ import { MeResolver } from "./modules/user/Me";
 import { RegisterResolver } from "./modules/user/Register";
 import { LoginResolver } from "./modules/user/Login";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import { refreshToken } from "./auth/refreshToken";
 
 const main = async () => {
   await createConnection();
 
-  const schema = await buildSchema({
-    resolvers: [MeResolver, RegisterResolver, LoginResolver],
-  });
-
   const apolloServer = new ApolloServer({
-    schema,
+    schema: await buildSchema({
+      resolvers: [MeResolver, RegisterResolver, LoginResolver],
+    }),
     context: ({ req, res }) => ({ req, res }),
   });
 
   const app = express();
 
+  app.use(cookieParser());
   app.use(cors());
+
+  app.post("/refresh", (req, res) => refreshToken(req, res));
 
   apolloServer.applyMiddleware({ app, cors: false });
 

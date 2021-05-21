@@ -1,9 +1,9 @@
 import { ObjectType, Arg, Mutation, Resolver, Field, Ctx } from "type-graphql";
 import { compare } from "bcryptjs";
 import { createAccessToken, createRefreshToken } from "../../auth";
-
 import { User } from "../../entity/User";
 import { Context } from "../../types/Context";
+import { sendRefreshToken } from "../../auth/sendRefreshToken";
 
 @ObjectType()
 class LoginResponse {
@@ -17,7 +17,7 @@ export class LoginResolver {
   async login(
     @Arg("email") email: string,
     @Arg("password") password: string,
-    @Ctx() { req, res }: Context
+    @Ctx() { res }: Context
   ): Promise<LoginResponse | null> {
     const user = await User.findOne({ where: { email } });
     if (!user) return null;
@@ -25,11 +25,7 @@ export class LoginResolver {
     const valid = await compare(password, user.password);
     if (!valid) return null;
 
-    res.cookie("qid", createRefreshToken(user), {
-      httpOnly: true,
-    });
-
-    console.log(req);
+    sendRefreshToken(res, createRefreshToken(user));
 
     return {
       accessToken: createAccessToken(user),
