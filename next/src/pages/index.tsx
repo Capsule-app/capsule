@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useTokenStore } from "../shared-hooks/useTokenStore";
-import { LoginPage } from "../modules/auth/LoginPage";
-
-const isClient = () => typeof window !== "undefined";
+import { useTokenStore } from "shared-hooks/useTokenStore";
+import { LoginPage } from "modules/auth/LoginPage";
+import { isClient } from "lib/constants";
 
 const Home: React.FC = () => {
   const hasTokens = useTokenStore((s) => !!s.accessToken);

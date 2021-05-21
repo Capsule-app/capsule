@@ -1,6 +1,6 @@
-import { es } from "../lang/es"
-import { en } from "../lang/en";
-import { enPirate } from "../lang/en-pirate"
+import { es } from "lib/lang/es";
+import { en } from "lib/lang/en";
+import { enPirate } from "lib/lang/en-pirate";
 
 export const Languages = {
   es: es,

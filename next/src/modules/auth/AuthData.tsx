@@ -1,27 +1,19 @@
 import React, { useContext, useEffect } from "react";
-import { useQuery } from "react-query";
-import { UserContext } from "../../shared-hooks/useUser";
-import axios from "axios";
+import { UserContext } from "shared-hooks/useUser";
 import { useRouter } from "next/router";
+import { useQuery } from "@apollo/client";
+import { meQuery } from "lib/graphql/me";
 
-interface Props {}
-
-export const AuthData: React.FC<Props> = ({ children }) => {
+export const AuthData: React.FC = ({ children }) => {
   const { asPath } = useRouter();
   const cur = useContext(UserContext);
 
-  const { data, status } = useQuery("auth", async () => {
-    const headers = { authToken: localStorage.getItem("token") };
-    return await axios
-      .get(`${process.env.API_URL}auth/`, {
-        headers: headers,
-      })
-      .then((res) => res.data);
-  });
+  const { data, loading } = useQuery(meQuery);
 
   useEffect(() => {
     if (asPath === "/") return;
-    cur.setUser({ ...data, isLoading: status === "loading" });
+    let user = data && data.me;
+    cur.setUser({ ...user, isLoading: loading });
   }, [data]);
 
   return <>{children}</>;

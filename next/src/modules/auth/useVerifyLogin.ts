@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useTokenStore } from "./useTokenStore";
+import { useTokenStore } from "lib/common/useTokenStore";
 
 export const useVerifyLoggedIn = () => {
   const { replace, asPath } = useRouter();
-  const hasTokens = useTokenStore((s) => !!(s.accessToken));
+  const hasTokens = useTokenStore((s) => !!s.accessToken);
 
   useEffect(() => {
     if (!hasTokens) {

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { Languages } from "./lang";
+import { Languages } from "lib/lang";
 
 export const defaultLocale = "en";
 export const locales = Object.getOwnPropertyNames(Languages);

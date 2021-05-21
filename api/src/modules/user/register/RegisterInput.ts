@@ -12,10 +12,6 @@ export class RegisterInput {
   username: string;
 
   @Field()
-  @MaxLength(300)
-  bio: string;
-
-  @Field()
   @Length(6, 255)
   @IsEmail()
   email: string;

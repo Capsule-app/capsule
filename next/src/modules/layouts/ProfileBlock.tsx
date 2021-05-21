@@ -15,7 +15,7 @@ export const ProfileBlock: React.FC = () => {
         <Link href={`/u/${user.username}`}>
           <a>
             <img
-              src={user.picture}
+              src={user.avatarUrl}
               className="w-6 h-6 rounded-full flex-none select-none"
             />
           </a>
@@ -24,7 +24,7 @@ export const ProfileBlock: React.FC = () => {
       <div className="flex flex-1 flex-col overflow-y-auto space-y-5">
         <section className="bg-primary-100 rounded-8 p-3 space-y-2">
           <div className="flex items-center space-x-2">
-            <img src={user.picture} alt="" className="w-8 h-8 rounded-full" />
+            <img src={user.avatarUrl} alt="" className="w-8 h-8 rounded-full" />
             <div>
               <h4>{user.name}</h4>
               <p className="-mt-1 font-medium text-primary-300">{`@${user.username}`}</p>

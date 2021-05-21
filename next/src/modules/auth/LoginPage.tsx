@@ -1,34 +1,19 @@
-import React, { useState } from "react";
-import axios from "axios";
-
-const isClient = () => typeof window !== "undefined";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@apollo/client";
+import { loginQuery } from "lib/graphql/login";
+import { isClient } from "lib/constants";
 
 export const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [useLogin, { data, error }] = useMutation(loginQuery);
 
-  const loginUser = async (e: any) => {
-    e.preventDefault();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = async (form: any) => {
+    await useLogin({ variables: form });
 
-    const res = await axios
-      .post(`${process.env.API_URL}auth/login/`, {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        if (res.data.error) {
-          setError(res.data.error);
-          return res.data;
-        }
-
-        localStorage.setItem("token", res.data._token);
-        return res.data;
-      });
-    if (!res.error && isClient()) {
-      console.log("aaaaaaaaaaaaaaaaaaaaaa");
-      window.location.reload();
-    }
+    if (!isClient() || !data) return;
+    localStorage.setItem("uid", data.login.accessToken);
+    window.location.reload();
   };
 
   return (
@@ -44,23 +29,25 @@ export const LoginPage: React.FC = () => {
             </a>
           </div>
         </div>
-        <form className="flex flex-col gap-4" onSubmit={loginUser}>
+        {error && error.graphQLErrors[0].message}
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <input
+            {...register("email")}
             placeholder="Email"
-            value={email}
-            onChange={(e: any) => setEmail(e.target.value)}
             type="email"
             className="flex outline-none py-2 px-3 rounded-lg bg-primary-200"
           />
           <input
+            {...register("password")}
             placeholder="Password"
-            value={password}
-            onChange={(e: any) => setPassword(e.target.value)}
             type="password"
             className="flex outline-none py-2 px-3 rounded-lg bg-primary-200"
           />
-          <p className="font-semibold text-red-100">{error}</p>
-          <button className="flex outline-none focus:ring-4 focus:ring-accent py-2 px-6 rounded-lg bg-accent flex items-center justify-center">
+          {/* <p className="font-semibold text-red-100">{error}</p> */}
+          <button
+            type="submit"
+            className="flex outline-none focus:ring-4 focus:ring-accent py-2 px-6 rounded-lg bg-accent items-center justify-center"
+          >
             <p className="text-base font-bold text-white">Login</p>
           </button>
         </form>

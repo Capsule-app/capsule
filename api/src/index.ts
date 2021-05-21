@@ -6,19 +6,21 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import { MeResolver } from "./modules/user/Me";
-import { RegisterResolver } from "./modules/user/Register";
-import { LoginResolver } from "./modules/user/Login";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { refreshToken } from "./auth/refreshToken";
+
+import { UserResolver } from "./modules/user/User";
+import { RegisterResolver } from "./modules/user/Register";
+import { LoginResolver } from "./modules/user/Login";
+import { PostResolver } from "./modules/post/Post";
 
 const main = async () => {
   await createConnection();
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [MeResolver, RegisterResolver, LoginResolver],
+      resolvers: [UserResolver, RegisterResolver, LoginResolver, PostResolver],
     }),
     context: ({ req, res }) => ({ req, res }),
   });
@@ -26,7 +28,12 @@ const main = async () => {
   const app = express();
 
   app.use(cookieParser());
-  app.use(cors());
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 
   app.post("/refresh", (req, res) => refreshToken(req, res));
 

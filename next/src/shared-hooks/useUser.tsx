@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { User } from "../types/user";
+import { User } from "util/types/user";
 
 interface Props {
   children?: React.ReactNode;
@@ -8,7 +8,7 @@ interface Props {
 
 interface Context {
   user: User | null;
-  setUser: (user: any) => void;
+  setUser: (user: User | null) => void;
 }
 
 export const queryClient = new QueryClient();

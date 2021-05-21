@@ -12,12 +12,18 @@ import { isAuth } from "../../middleware/isAuth";
 import { Context } from "../../types/Context";
 
 @Resolver()
-export class MeResolver {
+export class UserResolver {
   @Query(() => User, { nullable: true })
+  @UseMiddleware(isAuth)
   async me(@Ctx() ctx: Context): Promise<User | undefined> {
     if (!ctx.payload!.userId) return undefined;
 
     return await User.findOne(ctx.payload!.userId);
+  }
+
+  @Query(() => [User])
+  users() {
+    return User.find();
   }
 
   @Mutation(() => Boolean)
@@ -27,11 +33,5 @@ export class MeResolver {
       .increment({ id: userId }, "tokenVersion", 1);
 
     return true;
-  }
-
-  @Query(() => String)
-  @UseMiddleware(isAuth)
-  bye(@Ctx() ctx: Context) {
-    return `your user id is ${ctx.payload!.userId}`;
   }
 }
