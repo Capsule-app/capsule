@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "shared-hooks/useUser";
+import { UserContext } from "lib/common/useUser";
 import { Header } from "modules/layouts/Header";
 import { Post } from "modules/feed/Post";
 import axios from "axios";

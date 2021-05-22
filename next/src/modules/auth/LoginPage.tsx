@@ -18,7 +18,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="grid w-full h-full grid-rows-fr">
-      <div className="hideen m:flex" />
+      <div className="hidden m:flex" />
       <div className="flex m-auto flex-col p-6 gap-6 bg-primary-100 m:rounded-8 x-10 m:w-400 w-full">
         <div className="flex flex-col gap-2">
           <span className="text-3xl text-black font-bold">Welcome</span>

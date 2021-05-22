@@ -18,5 +18,9 @@ export class Post extends BaseEntity {
   authorId: string;
 
   @Field()
+  @Column()
+  createdAt: string;
+
+  @Field()
   author: User;
 }

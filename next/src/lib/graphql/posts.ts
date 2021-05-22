@@ -4,10 +4,13 @@ export const postsQuery = gql`
   query Posts {
     posts {
       id
-      authorId
       content
+      createdAt
       author {
+        id
         name
+        username
+        avatarUrl
       }
     }
   }

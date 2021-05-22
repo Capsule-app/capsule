@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "next/head";
 import { WaitForAuth } from "modules/auth/WaitForAuth";
 import { DefaultDesktopLayout } from "modules/layouts/DefaultDesktopLayout";
 
@@ -10,12 +9,7 @@ interface Props {
 export const Wrapper: React.FC<Props> = ({ children }) => {
   return (
     <WaitForAuth>
-      <DefaultDesktopLayout>
-        <Head>
-          <title>Your Feed | Capsule</title>
-        </Head>
-        {children}
-      </DefaultDesktopLayout>
+      <DefaultDesktopLayout>{children}</DefaultDesktopLayout>
     </WaitForAuth>
   );
 };

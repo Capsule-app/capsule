@@ -22,8 +22,18 @@ export class UserResolver {
   }
 
   @Query(() => [User])
-  users() {
+  users(): Promise<Array<User>> {
     return User.find();
+  }
+
+  @Query(() => User, { nullable: true })
+  user(@Arg("id") id: string): Promise<User | undefined> {
+    return User.findOne(id);
+  }
+
+  @Query(() => User, { nullable: true })
+  userByUsername(@Arg("username") username: string) {
+    return User.findOne({ where: { username: username } });
   }
 
   @Mutation(() => Boolean)

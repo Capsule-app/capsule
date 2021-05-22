@@ -24,10 +24,10 @@ export class PostResolver {
 
   @Query(() => [Post])
   posts(): Promise<Array<Post>> {
-    return Post.find();
+    return Post.find({ order: { createdAt: "DESC" } });
   }
 
-  @Query(() => Post)
+  @Query(() => Post, { nullable: true })
   post(@Arg("id") id: string) {
     return Post.findOne(id);
   }
@@ -40,6 +40,7 @@ export class PostResolver {
   ): Promise<boolean> {
     await Post.create({
       id: nanoid(),
+      createdAt: String(Date.now()),
       content,
       authorId: ctx.payload!.userId,
     }).save();

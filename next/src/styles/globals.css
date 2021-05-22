@@ -21,6 +21,12 @@
   }
 }
 
+@layer base {
+  .text-blurple {
+    @apply from-purple to-blue;
+  }
+}
+
 h1,
 h2,
 h3,

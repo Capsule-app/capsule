@@ -83,6 +83,7 @@ module.exports = {
         300: "#6B7280",
       },
       blue: "#2F4AF7",
+      purple: "#C661F4",
     },
     screens: {
       m: "1050px",
@@ -112,7 +113,7 @@ module.exports = {
       400: "400px",
     },
     gridTemplateColumns: {
-      xl: "250px 640px 350px",
+      xl: "275px 600px 350px",
       lg: "60px 600px 360px",
       md: "644px 360px",
       3: "repeat(3, minmax(0, 1fr))",

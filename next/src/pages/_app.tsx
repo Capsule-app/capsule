@@ -1,6 +1,6 @@
 import React from "react";
 import { AppProps } from "next/app";
-import { UserContextProvider } from "shared-hooks/useUser";
+import { UserContextProvider } from "lib/common/useUser";
 import { AuthData } from "modules/auth/AuthData";
 import { MediaContextProvider } from "shared-hooks/useScreenSize";
 import { LanguageProvider } from "lib/translations";

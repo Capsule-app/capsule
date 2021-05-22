@@ -1,96 +1,80 @@
-import React from "react";
-
-interface Post {
-  name: string;
-  username: string;
-  user_picture?: string;
-  content: string | Array<string>;
-  post_picture?: string;
-  url?: string;
-  id: string;
-}
+import React, { useState } from "react";
+import { Post as PostType } from "util/types/post";
+import { getPostDate } from "lib/postDate";
+import Linkify from "react-linkify";
+import {
+  CaretUpFill,
+  CaretDownFill,
+  ChatSquareFill,
+  ReplyFill,
+} from "react-bootstrap-icons";
 
 interface Props {
-  post: Post;
-  keyword?: string;
+  post: PostType;
 }
 
-export const Post: React.FC<Props> = ({ post, keyword }) => {
-  var arr, tags;
-  if (typeof post.content === "string") {
-    arr = post.content.split(" ");
-    tags = arr.filter((t) => t.startsWith("#"));
-  } else {
-    tags = post.content.filter((t) => t.startsWith("#"));
-  }
+export const Post: React.FC<Props> = ({ post }) => {
+  const date = getPostDate(post.createdAt);
+
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
 
   return (
-    <article className="space-y-2">
-      <header className="flex space-x-2">
-        {post.user_picture ? (
-          <img
-            src={post.user_picture}
-            alt=""
-            className="w-6.5 h-6.5 rounded-full flex-none select-none"
-          />
-        ) : (
-          <img
-            src="/default-profile.png"
-            alt=""
-            className="w-6.5 h-6.5 rounded-full flex-none select-none"
-          />
-        )}
-        <div>
-          <p className="font-bold">{post.name}</p>
-          <p className="text-primary-300 -mt-1">@{post.username}</p>
+    <div className="flex space-x-3">
+      <div className="flex-none flex flex-col items-center space-y-1">
+        <img
+          src={post.author.avatarUrl || "/default-profile.png"}
+          alt=""
+          className="w-6.5 h-6.5 rounded-full flex-none select-none"
+        />
+        <div className="flex flex-col items-center">
+          <button
+            onClick={() => {
+              setLiked(!liked);
+              if (disliked) setDisliked(false);
+            }}
+            className="flex items-center justify-center rounded w-4.5 h-4.5 hover:bg-primary-100"
+          >
+            <CaretUpFill
+              className={`text-xl ${liked ? "text-blue" : "text-primary-300"}`}
+            />
+          </button>
+          <p className="text-primary-500 font-bold text-sm">21k</p>
+          <button
+            onClick={() => {
+              setDisliked(!disliked);
+              if (liked) setLiked(false);
+            }}
+            className="flex items-center justify-center rounded w-4.5 h-4.5 hover:bg-primary-100"
+          >
+            <CaretDownFill
+              className={`text-xl ${
+                disliked ? "text-red-100" : "text-primary-300"
+              }`}
+            />
+          </button>
         </div>
-      </header>
-      <section>
-        {typeof post.content === "string" ? (
-          <p className="break-words">
-            {post.content.trim().replace(/#(\S+)/gi, "")}
-            {tags &&
-              tags.map((tag, index) => (
-                <a href={`/search/${tag.substr(1)}`}>
-                  <span
-                    className="text-gradient bg-gradient-to-r from-secondary-300 to-secondary-100"
-                    key={index}
-                  >
-                    &nbsp;{tag}
-                  </span>
-                </a>
-              ))}
-          </p>
-        ) : (
-          <div className="flex flex-wrap w-full">
-            {post.content.map((result: any, i: number) =>
-              result.includes(keyword) ? (
-                result.startsWith("#") ? (
-                  <p
-                    key={i}
-                    className="font-bold text-gradient bg-gradient-to-r from-secondary-300 to-secondary-100"
-                  >
-                    {result}&nbsp;
-                  </p>
-                ) : (
-                  <p className="font-bold" key={i}>
-                    {result}&nbsp;
-                  </p>
-                )
-              ) : result.startsWith("#") ? (
-                <p
-                  key={i}
-                  className="text-gradient bg-gradient-to-r from-secondary-300 to-secondary-100"
-                >
-                  {result}&nbsp;
-                </p>
-              ) : (
-                <p key={i}>{result}&nbsp;</p>
-              )
-            )}
-          </div>
-        )}
-      </section>
-    </article>
+      </div>
+      <div className="space-y-1">
+        <div className="flex items-center space-x-1">
+          <p className="font-bold">{post.author.name}</p>
+          <p className="text-primary-300">@{post.author.username}</p>
+        </div>
+        <Linkify>
+          <p className="break-words">{post.content}</p>
+        </Linkify>
+        <div className="h-5 flex items-center">
+          <button className="flex items-center space-x-1 px-2 h-full hover:bg-primary-100">
+            <ChatSquareFill className="text-sm text-primary-400" />
+            <p className="font-bold text-sm text-primary-400">12 comments</p>
+          </button>
+          <button className="flex items-center space-x-1 px-2 h-full hover:bg-primary-100">
+            <ReplyFill className="text-2xl text-primary-400" />
+            <p className="font-bold text-sm text-primary-400">Share</p>
+          </button>
+          <p className="text-primary-300 text-sm">{date}</p>
+        </div>
+      </div>
+    </div>
   );
 };

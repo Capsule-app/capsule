@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { DefaultDesktopLayout } from "../layouts/DefaultDesktopLayout";
 import { UserPageController } from "./UserPageController";
-import { WaitForAuth } from "../auth/waitForAuth";
+import { WaitForAuth } from "../auth/WaitForAuth";
 
 export const UserPage: React.FC = () => {
   const router = useRouter();

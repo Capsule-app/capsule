@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { UserContext } from "../../shared-hooks/useUser";
-import { Media } from "../../shared-hooks/useScreenSize";
+import { UserContext } from "lib/common/useUser";
+import { Media } from "shared-hooks/useScreenSize";
 import { Search } from "react-bootstrap-icons";
-import { useTranslation } from "../../shared-hooks/useTranslation";
-import { CreatePostModal } from "../modals/CreatePost";
+import { useTranslation } from "shared-hooks/useTranslation";
+import { CreatePostModal } from "modules/modals/CreatePost";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -77,7 +77,7 @@ export const Header: React.FC = () => {
                     <Link href="/u/alex">
                       <a>
                         <img
-                          src={user.picture}
+                          src={user.avatarUrl}
                           alt=""
                           className="w-5.5 h-5.5 rounded-full flex-none select-none"
                         />
@@ -96,7 +96,7 @@ export const Header: React.FC = () => {
             <h4>Your Feed</h4>
             <button
               onClick={() => setOpen(true)}
-              className="focus outline-none focus:ring-4 focus:ring-secondary-ring font-serif text-sm text-white font-bold py-2 px-6 rounded-lg transition duration-200 ease-in-out bg-gradient-to-r from-secondary-200 to-secondary-100 hover:to-secondary-100-hover hover:from-secondary-200-hover"
+              className="focus outline-none focus:ring-4 focus:ring-secondary-ring font-serif text-sm text-white font-bold py-2 px-6 rounded-lg transition duration-200 ease-in-out bg-blue"
             >
               Create Post
             </button>
