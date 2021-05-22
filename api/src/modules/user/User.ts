@@ -8,7 +8,7 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { User } from "../../entity/User";
-import { isAuth } from "../../middleware/isAuth";
+import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
 
 @Resolver()

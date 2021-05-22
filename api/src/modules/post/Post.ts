@@ -12,14 +12,15 @@ import { Post } from "../../entity/Post";
 import { User } from "../../entity/User";
 import { CreatePostInput } from "./CreatePostInput";
 import { nanoid } from "nanoid";
-import { isAuth } from "../../middleware/isAuth";
+import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
+import { authorLoader } from "./AuthorLoader";
 
 @Resolver(Post)
 export class PostResolver {
   @FieldResolver(() => User, { nullable: true })
-  async author(@Root() parent: Post): Promise<User | undefined> {
-    return await User.findOne({ where: { id: parent.authorId } });
+  async author(@Root() parent: Post): Promise<User | null> {
+    return await authorLoader.load(parent.authorId);
   }
 
   @Query(() => [Post])

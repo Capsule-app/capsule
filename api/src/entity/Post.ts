@@ -21,6 +21,6 @@ export class Post extends BaseEntity {
   @Column()
   createdAt: string;
 
-  @Field()
+  @Field(() => User, { nullable: true })
   author: User;
 }
