@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { UserContext } from "lib/common/useUser";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import { postsQuery } from "lib/graphql/posts";
 import { Post as PostType } from "util/types/post";
@@ -8,7 +7,6 @@ import { Header } from "modules/layouts/Header";
 import { Post } from "components/post/Post";
 
 const FeedPage: React.FC = () => {
-  const { user } = useContext(UserContext);
   const { data, loading } = useQuery(postsQuery);
 
   if (loading) return <div>loading</div>;
@@ -24,7 +22,7 @@ const FeedPage: React.FC = () => {
           ))}
       </div>
     </Wrapper>
-  );
+  )d
 };
 
 export default FeedPage;

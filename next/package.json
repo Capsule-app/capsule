@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "prebuild": "yarn cache clean",
     "build": "next build",
-    "start": "next start"
+    "dev": "next dev",
+    "start": "next start",
+    "clean": "rimraf .next"
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
@@ -22,6 +23,7 @@
     "react-linkify": "^1.0.0-alpha",
     "react-modal": "^3.13.1",
     "react-query": "^3.16.0",
+    "rimraf": "^3.0.2",
     "zustand": "^3.5.1"
   },
   "devDependencies": {

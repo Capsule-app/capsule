@@ -69,7 +69,7 @@ export const SearchPage: React.FC = () => {
           search.posts.map((result: any, i: number) => {
             const content = result.content.split(" ");
             const newResult = { ...result, content: content };
-            return <Post post={newResult} keyword={query.query} key={i} />;
+            return <Post post={newResult} key={i} />;
           })}
       </div>
     </DefaultDesktopLayout>

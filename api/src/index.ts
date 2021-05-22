@@ -24,6 +24,8 @@ const main = async () => {
       resolvers: [UserResolver, RegisterResolver, LoginResolver, PostResolver],
     }),
     context: ({ req, res }) => ({ req, res }),
+    introspection: true,
+    playground: true,
   });
 
   const app = express();
