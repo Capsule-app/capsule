@@ -6,7 +6,7 @@
     "prebuild": "yarn cache clean",
     "build": "next build",
     "dev": "next dev",
-    "start": "next start",
+    "start": "yarn build && next start",
     "clean": "rimraf .next"
   },
   "dependencies": {

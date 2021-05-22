@@ -22,7 +22,7 @@ const FeedPage: React.FC = () => {
           ))}
       </div>
     </Wrapper>
-  )d
+  );
 };
 
 export default FeedPage;
