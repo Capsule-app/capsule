@@ -6,7 +6,7 @@ export const ormconfig: ConnectionOptions = {
   host: "localhost",
   port: 5432,
   username: "capsule",
-  password: "capsule$",
+  password: "capsule",
   database: "capsule",
   synchronize: true,
   entities: [`${__dirname}/entity/*.*`],
