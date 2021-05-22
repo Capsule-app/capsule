@@ -33,7 +33,11 @@ const main = async () => {
   app.use(cookieParser());
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: `${
+        process.env.NODE_ENV === "production"
+          ? "https://capsule.app/"
+          : "http://localhost:3000"
+      }`,
       credentials: true,
     })
   );
@@ -43,7 +47,13 @@ const main = async () => {
   apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(4000, () => {
-    console.log("Server listening at http://localhost:4000/graphql");
+    console.log(
+      `Server listening at ${
+        process.env.NODE_ENV === "production"
+          ? "https://capsule.app/api"
+          : "http://localhost:4000/graphql"
+      }`
+    );
   });
 };
 
