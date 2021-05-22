@@ -10,7 +10,10 @@ node_modules/
 .next
 .vscode
 .env
-api/ormconfig.json
+
+# api
+ormconfig.ts
+api/dist
 
 # macOS
 .DS_Store

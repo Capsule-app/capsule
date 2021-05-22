@@ -1,6 +1,6 @@
 import { ObjectType, Arg, Mutation, Resolver, Field, Ctx } from "type-graphql";
 import { compare } from "bcryptjs";
-import { createAccessToken, createRefreshToken } from "../../auth";
+import { createAccessToken, createRefreshToken } from "../../auth/createTokens";
 import { User } from "../../entity/User";
 import { Context } from "../../types/Context";
 import { sendRefreshToken } from "../../auth/sendRefreshToken";

@@ -6,6 +6,7 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
+import { ormconfig } from "./ormconfig";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { refreshToken } from "./auth/refreshToken";
@@ -16,7 +17,7 @@ import { LoginResolver } from "./modules/user/Login";
 import { PostResolver } from "./modules/post/Post";
 
 const main = async () => {
-  await createConnection();
+  await createConnection(ormconfig);
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
