@@ -8,10 +8,9 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { User } from "../../entity/User";
-import { Space } from "../../entity/Space";
 import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
-import { Member } from "../../entity/Member";
+import { QueryInput } from "./QueryInput";
 
 @Resolver()
 export class UserResolver {
@@ -38,39 +37,16 @@ export class UserResolver {
     return User.findOne({ where: { username: username } });
   }
 
+  @Query(() => User, { nullable: true })
+  userByQuery(@Arg("query") query: QueryInput): Promise<User | undefined> {
+    return User.findOne({ where: query });
+  }
+
   @Mutation(() => Boolean)
   async revokeUserRefreshTokens(@Arg("userId", () => String) userId: string) {
     await getConnection()
       .getRepository(User)
       .increment({ id: userId }, "tokenVersion", 1);
-
-    return true;
-  }
-
-  @Mutation(() => Boolean)
-  @UseMiddleware(isAuth)
-  async joinSpace(
-    @Ctx() ctx: Context,
-    @Arg("spaceId", () => String) spaceId: string
-  ) {
-    await Member.create({ userId: ctx.payload!.userId, spaceId }).save();
-    return true;
-  }
-
-  @Mutation(() => Boolean)
-  @UseMiddleware(isAuth)
-  async joinSpace2(
-    @Arg("spaceId") spaceId: string,
-    @Ctx() ctx: Context
-  ): Promise<boolean> {
-    const user = await User.findOne(ctx.payload!.userId);
-    if (!user) return false;
-
-    const space = await Space.findOne(spaceId);
-    if (!space) return false;
-
-    user.memberships = Promise.resolve([...(await user.memberships), space]);
-    user.save();
 
     return true;
   }

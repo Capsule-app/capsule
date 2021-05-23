@@ -10,7 +10,7 @@ import {
 } from "type-graphql";
 import { Space } from "../../entity/Space";
 import { User } from "../../entity/User";
-import { Comment } from "../../entity/Comment";
+import { Member } from "../../entity/Member";
 import { CreateSpaceInput } from "./CreateSpaceInput";
 import { nanoid } from "nanoid";
 import { isAuth } from "../../auth/isAuth";
@@ -47,6 +47,16 @@ export class SpaceResolver {
       authorId: ctx.payload!.userId,
     }).save();
 
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async joinSpace(
+    @Ctx() ctx: Context,
+    @Arg("spaceId", () => String) spaceId: string
+  ) {
+    await Member.create({ userId: ctx.payload!.userId, spaceId }).save();
     return true;
   }
 }
