@@ -54,12 +54,11 @@ export class UserResolver {
   ): Promise<boolean> {
     const user = await User.findOne(ctx.payload!.userId);
     if (!user) return false;
+
     const space = await Space.findOne(spaceId);
     if (!space) return false;
 
-    console.log(await user.memberships);
     user.memberships = Promise.resolve([...(await user.memberships), space]);
-
     user.save();
 
     return true;
