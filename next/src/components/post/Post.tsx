@@ -30,43 +30,20 @@ export const Post: React.FC<Props> = ({ post }) => {
           alt=""
           className="w-6.5 h-6.5 rounded-full flex-none select-none"
         />
-        <div className="flex flex-col items-center">
-          <button
-            onClick={() => {
-              setLiked(!liked);
-              if (disliked) setDisliked(false);
-            }}
-            className="flex items-center justify-center rounded w-4.5 h-4.5 hover:bg-primary-100"
-          >
-            <CaretUpFill
-              className={`text-xl ${liked ? "text-blue" : "text-primary-300"}`}
-            />
-          </button>
-          <p className="text-primary-500 font-bold text-sm">21k</p>
-          <button
-            onClick={() => {
-              setDisliked(!disliked);
-              if (liked) setLiked(false);
-            }}
-            className="flex items-center justify-center rounded w-4.5 h-4.5 hover:bg-primary-100"
-          >
-            <CaretDownFill
-              className={`text-xl ${
-                disliked ? "text-red-100" : "text-primary-300"
-              }`}
-            />
-          </button>
-        </div>
       </div>
-      <div className="space-y-1">
-        <div className="flex items-center space-x-1">
+      <div className="space-y-1 w-full">
+        <header className="flex items-center space-x-1">
           <p className="font-bold">{post.author.name}</p>
           <p className="text-primary-300">@{post.author.username}</p>
-        </div>
+        </header>
         <Linkify>
-          <p className="break-words">{post.content}</p>
+          <div>
+            <p className="break-words line-clamp-6 overflow-hidden">
+              {post.content}
+            </p>
+          </div>
         </Linkify>
-        <div className="h-5 flex items-center">
+        <div className="-ml-1 h-5 flex items-center">
           <FooterButton
             text="12 comments"
             icon={<ChatSquareFill className="text-sm text-primary-400" />}
@@ -77,6 +54,33 @@ export const Post: React.FC<Props> = ({ post }) => {
           />
           <p className="text-primary-300 text-sm">{date}</p>
         </div>
+      </div>
+      <div className="flex-none flex flex-col items-center">
+        <button
+          onClick={() => {
+            setLiked(!liked);
+            if (disliked) setDisliked(false);
+          }}
+          className="flex items-center justify-center rounded w-4.5 h-4.5 hover:bg-primary-100"
+        >
+          <CaretUpFill
+            className={`text-xl ${liked ? "text-blue" : "text-primary-300"}`}
+          />
+        </button>
+        <p className="text-primary-500 font-bold text-sm">21k</p>
+        <button
+          onClick={() => {
+            setDisliked(!disliked);
+            if (liked) setLiked(false);
+          }}
+          className="flex items-center justify-center rounded w-4.5 h-4.5 hover:bg-primary-100"
+        >
+          <CaretDownFill
+            className={`text-xl ${
+              disliked ? "text-red-100" : "text-primary-300"
+            }`}
+          />
+        </button>
       </div>
     </div>
   );

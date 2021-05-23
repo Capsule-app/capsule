@@ -1,6 +1,6 @@
 import React from "react";
 import { WaitForAuth } from "components/auth/WaitForAuth";
-import { DefaultDesktopLayout } from "modules/layouts/DefaultDesktopLayout";
+import { DefaultDesktopLayout } from "components/layouts/DefaultDesktopLayout";
 
 interface Props {
   children?: React.ReactNode;

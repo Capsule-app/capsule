@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { postsQuery } from "lib/graphql/posts";
 import { Post as PostType } from "util/types/post";
 import { Wrapper } from "components/feed/Wrapper";
-import { Header } from "modules/layouts/Header";
+import { Header } from "components/layouts/Header";
 import { Post } from "components/post/Post";
 
 const FeedPage: React.FC = () => {

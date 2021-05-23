@@ -1,5 +1,5 @@
 import React from "react";
-import { useVerifyLoggedIn } from "./useVerifyLogin";
+import { useVerifyLoggedIn } from "../../util/hooks/useVerifyLogin";
 
 interface WaitForAuthProps {}
 
