@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { UserContext } from "lib/common/useUser";
-import { useTranslation } from "shared-hooks/useTranslation";
+import { useTranslation } from "util/hooks/useTranslation";
 import Link from "next/link";
 
 export const ProfileBlock: React.FC = () => {

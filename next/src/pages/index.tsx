@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useTokenStore } from "shared-hooks/useTokenStore";
-import { LoginPage } from "modules/auth/LoginPage";
+import { useTokenStore } from "util/hooks/useTokenStore";
+import { LoginPage } from "components/auth/LoginPage";
 import { isClient } from "lib/constants";
 
 const Home: React.FC = () => {

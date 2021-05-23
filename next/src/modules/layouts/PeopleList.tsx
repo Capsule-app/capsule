@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useTranslation } from "../../shared-hooks/useTranslation";
+import { useTranslation } from "../../util/hooks/useTranslation";
 
 export const PeopleList: React.FC = () => {
   const { t } = useTranslation();

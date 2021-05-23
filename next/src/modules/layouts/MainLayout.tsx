@@ -1,6 +1,6 @@
 import React from "react";
 import { FixedGridPanel, MiddlePanel } from "./GridPanels";
-import { Media } from "../../shared-hooks/useScreenSize";
+import { Media } from "../../util/hooks/useScreenSize";
 
 interface MainLayoutProps {
   tabletSidebar?: React.ReactNode;

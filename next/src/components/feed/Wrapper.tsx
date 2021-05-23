@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { WaitForAuth } from "modules/auth/WaitForAuth";
+import { WaitForAuth } from "components/auth/WaitForAuth";
 import { DefaultDesktopLayout } from "modules/layouts/DefaultDesktopLayout";
 
 interface Props {

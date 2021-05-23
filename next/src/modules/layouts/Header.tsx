@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "lib/common/useUser";
-import { Media } from "shared-hooks/useScreenSize";
+import { Media } from "util/hooks/useScreenSize";
 import { Search } from "react-bootstrap-icons";
-import { useTranslation } from "shared-hooks/useTranslation";
+import { useTranslation } from "util/hooks/useTranslation";
 import { CreatePostModal } from "modules/modals/CreatePost";
 import Link from "next/link";
 import axios from "axios";
