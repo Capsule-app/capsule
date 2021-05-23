@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Post as PostType } from "util/types/post";
 import { getPostDate } from "lib/postDate";
-import Linkify from "react-linkify";
 import { FooterButton } from "components/post/FooterButton";
 import {
   CaretUpFill,
@@ -9,6 +8,8 @@ import {
   ChatSquareFill,
   ReplyFill,
 } from "react-bootstrap-icons";
+import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 
 interface Props {
   post: PostType;
@@ -21,6 +22,8 @@ export const Post: React.FC<Props> = ({ post }) => {
   const [disliked, setDisliked] = useState(false);
 
   if (!post.author) return null;
+
+  var emojified = post.content.replace(/:(\w+):/g, "![:$1:](/emoji/$1.png)");
 
   return (
     <div className="flex space-x-3">
@@ -36,13 +39,22 @@ export const Post: React.FC<Props> = ({ post }) => {
           <p className="font-bold">{post.author.name}</p>
           <p className="text-primary-300">@{post.author.username}</p>
         </header>
-        <Linkify>
-          <div>
-            <p className="break-words line-clamp-6 overflow-hidden">
-              {post.content}
-            </p>
-          </div>
-        </Linkify>
+        <ReactMarkdown
+          allowedElements={["p", "img"]}
+          unwrapDisallowed
+          components={{
+            p: ({ node, ...props }) => (
+              <p className="flex items-center" {...props} />
+            ),
+            img: ({ node, ...props }) => (
+              <div className="mx-1 flex items-center justify-center">
+                <Image width="24px" height="24px" {...(props as any)} />
+              </div>
+            ),
+          }}
+        >
+          {emojified}
+        </ReactMarkdown>
         <div className="-ml-1 h-5 flex items-center">
           <FooterButton
             text="12 comments"
@@ -67,7 +79,17 @@ export const Post: React.FC<Props> = ({ post }) => {
             className={`text-xl ${liked ? "text-blue" : "text-primary-300"}`}
           />
         </button>
-        <p className="text-primary-500 font-bold text-sm">21k</p>
+        <p
+          className={`${
+            liked || disliked
+              ? liked
+                ? "text-blue"
+                : "text-red-100"
+              : "text-primary-500"
+          } font-bold text-sm`}
+        >
+          21k
+        </p>
         <button
           onClick={() => {
             setDisliked(!disliked);

@@ -4,7 +4,10 @@ export const getPostDate = (d: string): string => {
   var date = dayjs(new Date(Number(d)));
 
   if (date.format("D") === String(new Date().getDate()))
-    return `Today at ${date.format("h:mm")}`;
+    return `Today at ${date.format("h:mm a")}`;
 
-  return `Yesteday at ${date.format("h:mm")}`;
+  if (date.format("D") === String(new Date().getDate() - 1))
+    return `Yesterday at ${date.format("h:mm a")}`;
+
+  return `${date.format("MMM D")}`;
 };
