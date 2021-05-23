@@ -24,7 +24,7 @@ export const Post: React.FC<Props> = ({ post }) => {
     <div className="flex space-x-3">
       <div className="flex-none flex flex-col items-center space-y-1">
         <img
-          src={post.author.avatarUrl || "/default-profile.png"}
+          src={post.author ? post.author.avatarUrl : "/default-profile.png"}
           alt=""
           className="w-6.5 h-6.5 rounded-full flex-none select-none"
         />
@@ -58,8 +58,8 @@ export const Post: React.FC<Props> = ({ post }) => {
       </div>
       <div className="space-y-1">
         <div className="flex items-center space-x-1">
-          <p className="font-bold">{post.author.name}</p>
-          <p className="text-primary-300">@{post.author.username}</p>
+          <p className="font-bold">{post.author?.name}</p>
+          <p className="text-primary-300">@{post.author?.username}</p>
         </div>
         <Linkify>
           <p className="break-words">{post.content}</p>
