@@ -1,13 +1,8 @@
-import {
-  Entity,
-  PrimaryColumn,
-  BaseEntity,
-  ManyToMany,
-  JoinTable,
-  Column,
-} from "typeorm";
+import { Entity, PrimaryColumn, BaseEntity, ManyToMany, Column } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
 import { User } from "./User";
+import { Member } from "./Member";
+import { memberLoader } from "../modules/loaders/memberLoader";
 
 @ObjectType()
 @Entity()
@@ -24,12 +19,15 @@ export class Space extends BaseEntity {
   @Column()
   name: string;
 
-  @ManyToMany(() => User, (user) => user.memberships)
-  @JoinTable()
-  @Field(() => [User])
-  members: Promise<User[]>;
-
   @Field()
   @Column()
   createdAt: string;
+
+  @ManyToMany(() => Member, (member) => member.space, { onDelete: "CASCADE" })
+  FK_members: Promise<Member[]>;
+
+  @Field(() => [User], { nullable: true })
+  async members(): Promise<User[]> {
+    return await memberLoader.load(this.id);
+  }
 }

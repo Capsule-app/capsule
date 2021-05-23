@@ -1,6 +1,7 @@
 import { Entity, PrimaryColumn, Column, BaseEntity, ManyToMany } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
 import { Space } from "./Space";
+import { membershipLoader } from "../modules/loaders/MembershipLoader";
 
 @ObjectType()
 @Entity()
@@ -36,5 +37,10 @@ export class User extends BaseEntity {
   tokenVersion: string;
 
   @ManyToMany(() => Space, (space) => space.members)
-  memberships: Promise<Space[]>;
+  FK_memberships: Promise<Space[]>;
+
+  @Field(() => [User], { nullable: true })
+  async memberships(): Promise<Space[]> {
+    return await membershipLoader.load(this.id);
+  }
 }

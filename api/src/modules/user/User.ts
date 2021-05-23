@@ -11,6 +11,7 @@ import { User } from "../../entity/User";
 import { Space } from "../../entity/Space";
 import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
+import { Member } from "../../entity/Member";
 
 @Resolver()
 export class UserResolver {
@@ -49,6 +50,16 @@ export class UserResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async joinSpace(
+    @Ctx() ctx: Context,
+    @Arg("spaceId", () => String) spaceId: string
+  ) {
+    await Member.create({ userId: ctx.payload!.userId, spaceId }).save();
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async joinSpace2(
     @Arg("spaceId") spaceId: string,
     @Ctx() ctx: Context
   ): Promise<boolean> {
