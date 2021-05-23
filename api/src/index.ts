@@ -15,13 +15,22 @@ import { UserResolver } from "./modules/user/User";
 import { RegisterResolver } from "./modules/user/Register";
 import { LoginResolver } from "./modules/user/Login";
 import { PostResolver } from "./modules/post/Post";
+import { CommentResolver } from "./modules/comment/Comment";
+import { SpaceResolver } from "./modules/space/Space";
 
 const main = async () => {
   await createConnection(ormconfig);
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver, RegisterResolver, LoginResolver, PostResolver],
+      resolvers: [
+        UserResolver,
+        RegisterResolver,
+        LoginResolver,
+        PostResolver,
+        CommentResolver,
+        SpaceResolver,
+      ],
     }),
     context: ({ req, res }) => ({ req, res }),
     introspection: true,

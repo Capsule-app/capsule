@@ -8,6 +8,7 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { User } from "../../entity/User";
+import { Space } from "../../entity/Space";
 import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
 
@@ -41,6 +42,25 @@ export class UserResolver {
     await getConnection()
       .getRepository(User)
       .increment({ id: userId }, "tokenVersion", 1);
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async joinSpace(
+    @Arg("spaceId") spaceId: string,
+    @Ctx() ctx: Context
+  ): Promise<boolean> {
+    const user = await User.findOne(ctx.payload!.userId);
+    if (!user) return false;
+    const space = await Space.findOne(spaceId);
+    if (!space) return false;
+
+    console.log(await user.memberships);
+    user.memberships = Promise.resolve([...(await user.memberships), space]);
+
+    user.save();
 
     return true;
   }

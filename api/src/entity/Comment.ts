@@ -1,11 +1,10 @@
 import { Entity, PrimaryColumn, Column, BaseEntity } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
 import { User } from "./User";
-import { Comment } from "./Comment";
 
 @ObjectType()
 @Entity()
-export class Post extends BaseEntity {
+export class Comment extends BaseEntity {
   @PrimaryColumn()
   @Field(() => ID)
   id: string;
@@ -16,15 +15,16 @@ export class Post extends BaseEntity {
 
   @Field()
   @Column()
+  postId: string;
+
+  @Field()
+  @Column()
   authorId: string;
 
   @Field()
   @Column()
   createdAt: string;
 
-  @Field(() => User, { nullable: true })
+  @Field(() => User)
   author: User;
-
-  @Field(() => [Comment], { nullable: true })
-  comments: Comment[];
 }

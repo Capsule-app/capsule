@@ -1,5 +1,6 @@
-import { Entity, PrimaryColumn, Column, BaseEntity } from "typeorm";
+import { Entity, PrimaryColumn, Column, BaseEntity, ManyToMany } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
+import { Space } from "./Space";
 
 @ObjectType()
 @Entity()
@@ -33,4 +34,7 @@ export class User extends BaseEntity {
 
   @Column("int", { default: 0 })
   tokenVersion: string;
+
+  @ManyToMany(() => Space, (space) => space.members)
+  memberships: Promise<Space[]>;
 }

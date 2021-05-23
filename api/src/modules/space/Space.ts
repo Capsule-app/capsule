@@ -8,47 +8,42 @@ import {
   Root,
   FieldResolver,
 } from "type-graphql";
-import { Post } from "../../entity/Post";
+import { Space } from "../../entity/Space";
 import { User } from "../../entity/User";
 import { Comment } from "../../entity/Comment";
-import { CreatePostInput } from "./CreatePostInput";
+import { CreateSpaceInput } from "./CreateSpaceInput";
 import { nanoid } from "nanoid";
 import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
 import { authorLoader } from "../loaders/AuthorLoader";
 
-@Resolver(Post)
-export class PostResolver {
+@Resolver(Space)
+export class SpaceResolver {
   @FieldResolver(() => User, { nullable: true })
-  async author(@Root() parent: Post): Promise<User | null> {
+  async author(@Root() parent: Space): Promise<User | null> {
     return await authorLoader.load(parent.authorId);
   }
 
-  @FieldResolver(() => [Comment], { nullable: true })
-  async comments(@Root() parent: Post): Promise<Array<Comment> | null> {
-    return await Comment.find({ where: { postId: parent.id } });
+  @Query(() => [Space], { nullable: true })
+  spaces(): Promise<Array<Space>> {
+    return Space.find();
   }
 
-  @Query(() => [Post], { nullable: true })
-  posts(): Promise<Array<Post>> {
-    return Post.find({ order: { createdAt: "DESC" } });
-  }
-
-  @Query(() => Post, { nullable: true })
-  post(@Arg("id") id: string) {
-    return Post.findOne(id);
+  @Query(() => Space, { nullable: true })
+  space(@Arg("id") id: string) {
+    return Space.findOne(id);
   }
 
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
-  async createPost(
-    @Arg("data") { content }: CreatePostInput,
+  async createSpace(
+    @Arg("data") { name }: CreateSpaceInput,
     @Ctx() ctx: Context
   ): Promise<boolean> {
-    await Post.create({
+    await Space.create({
       id: nanoid(),
       createdAt: String(Date.now()),
-      content,
+      name,
       authorId: ctx.payload!.userId,
     }).save();
 

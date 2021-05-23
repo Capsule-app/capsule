@@ -2,7 +2,7 @@ import { Arg, Mutation, Resolver } from "type-graphql";
 import bcrypt from "bcryptjs";
 import { nanoid } from "nanoid";
 import { User } from "../../entity/User";
-import { RegisterInput } from "./register/RegisterInput";
+import { RegisterInput } from "./RegisterInput";
 
 @Resolver()
 export class RegisterResolver {

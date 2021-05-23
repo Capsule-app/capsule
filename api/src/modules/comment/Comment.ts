@@ -8,48 +8,44 @@ import {
   Root,
   FieldResolver,
 } from "type-graphql";
+import { Comment } from "../../entity/Comment";
 import { Post } from "../../entity/Post";
 import { User } from "../../entity/User";
-import { Comment } from "../../entity/Comment";
-import { CreatePostInput } from "./CreatePostInput";
+import { CreateCommentInput } from "./CreateCommentInput";
 import { nanoid } from "nanoid";
 import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
 import { authorLoader } from "../loaders/AuthorLoader";
 
-@Resolver(Post)
-export class PostResolver {
+@Resolver(Comment)
+export class CommentResolver {
   @FieldResolver(() => User, { nullable: true })
-  async author(@Root() parent: Post): Promise<User | null> {
+  async author(@Root() parent: Comment): Promise<User | null> {
     return await authorLoader.load(parent.authorId);
   }
 
-  @FieldResolver(() => [Comment], { nullable: true })
-  async comments(@Root() parent: Post): Promise<Array<Comment> | null> {
-    return await Comment.find({ where: { postId: parent.id } });
-  }
-
-  @Query(() => [Post], { nullable: true })
-  posts(): Promise<Array<Post>> {
-    return Post.find({ order: { createdAt: "DESC" } });
+  @Query(() => [Comment])
+  comments(): Promise<Array<Comment>> {
+    return Comment.find({ order: { createdAt: "DESC" } });
   }
 
   @Query(() => Post, { nullable: true })
-  post(@Arg("id") id: string) {
-    return Post.findOne(id);
+  comment(@Arg("id") id: string) {
+    return Comment.findOne(id);
   }
 
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
-  async createPost(
-    @Arg("data") { content }: CreatePostInput,
+  async createComment(
+    @Arg("data") { content, postId }: CreateCommentInput,
     @Ctx() ctx: Context
   ): Promise<boolean> {
-    await Post.create({
+    await Comment.create({
       id: nanoid(),
       createdAt: String(Date.now()),
       content,
       authorId: ctx.payload!.userId,
+      postId,
     }).save();
 
     return true;
