@@ -2,7 +2,7 @@ import { Entity, PrimaryColumn, BaseEntity, ManyToMany, Column } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
 import { User } from "./User";
 import { Member } from "./Member";
-import { memberLoader } from "../modules/loaders/memberLoader";
+import { memberLoader } from "../modules/loaders/MemberLoader";
 
 @ObjectType()
 @Entity()
