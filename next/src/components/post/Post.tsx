@@ -66,7 +66,7 @@ export const Post: React.FC<Props> = ({ post }) => {
             text="Share"
             icon={<ReplyFill className="text-2xl text-primary-400" />}
           />
-          <p className="text-primary-300 text-sm">{date}</p>
+          <p className="text-primary-300 text-sm hidden m:block">{date}</p>
         </div>
       </div>
       <div className="flex-none flex flex-col items-center">

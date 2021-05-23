@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { loginQuery } from "lib/graphql/login";
@@ -10,11 +10,13 @@ export const LoginPage: React.FC = () => {
   const { register, handleSubmit } = useForm();
   const onSubmit = async (form: any) => {
     await useLogin({ variables: form });
+  };
 
+  useEffect(() => {
     if (!isClient() || !data) return;
     localStorage.setItem("uid", data.login.accessToken);
     window.location.reload();
-  };
+  }, [data]);
 
   return (
     <div className="grid w-full h-full grid-rows-fr">

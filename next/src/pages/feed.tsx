@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { postsQuery } from "lib/graphql/posts";
 import { Post as PostType } from "util/types/post";
-import { Wrapper } from "components/feed/Wrapper";
+import { Wrapper } from "components/common/Wrapper";
 import { Header } from "components/layouts/Header";
 import { Post } from "components/post/Post";
 
@@ -12,7 +12,7 @@ const FeedPage: React.FC = () => {
   if (loading) return <div>loading</div>;
 
   return (
-    <Wrapper>
+    <Wrapper title="Your Feed | Capsule">
       <Header />
       <div className="mt-2 m:mt-0 space-y-3">
         {data &&

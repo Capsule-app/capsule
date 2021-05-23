@@ -1,14 +1,13 @@
 import React from "react";
-import Head from "next/head";
+import { Wrapper } from "components/common/Wrapper";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { userQuery } from "lib/graphql/user";
-import { Wrapper } from "components/user/Wrapper";
 
 const UserPage: React.FC = () => {
-  const router = useRouter();
+  const { query } = useRouter();
   const { data, loading } = useQuery(userQuery, {
-    variables: { username: router.query.username },
+    variables: { username: query.username },
   });
 
   if (loading) return <div>loading...</div>;
@@ -16,10 +15,7 @@ const UserPage: React.FC = () => {
   const user = data.userByUsername;
 
   return (
-    <Wrapper>
-      <Head>
-        <title>{`${user.name} (@${user.username}) | Capsule`}</title>
-      </Head>
+    <Wrapper title={`${user.name} (@${user.username}) | Capsule`}>
       <ul>
         <li>id: {user.id}</li>
         <li>name: {user.name}</li>

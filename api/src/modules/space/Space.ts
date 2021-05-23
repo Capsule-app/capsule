@@ -34,6 +34,11 @@ export class SpaceResolver {
     return Space.findOne(id);
   }
 
+  @Query(() => Space, { nullable: true })
+  spaceByName(@Arg("name") name: string) {
+    return Space.findOne({ where: { name } });
+  }
+
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async createSpace(
