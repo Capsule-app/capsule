@@ -57,7 +57,9 @@ export const Post: React.FC<Props> = ({ post }) => {
         </ReactMarkdown>
         <div className="-ml-1 h-5 flex items-center">
           <FooterButton
-            text="12 comments"
+            text={`${post.commentCount || "No"} comment${
+              post.commentCount !== 1 ? "s" : ""
+            }`}
             icon={<ChatSquareFill className="text-sm text-primary-400" />}
           />
           <FooterButton

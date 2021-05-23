@@ -1,7 +1,17 @@
-import { Entity, PrimaryColumn, Column, BaseEntity } from "typeorm";
-import { Field, ID, ObjectType } from "type-graphql";
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  BaseEntity,
+  getConnection,
+} from "typeorm";
+import { Field, ID, Int, ObjectType } from "type-graphql";
 import { User } from "./User";
 import { Comment } from "./Comment";
+import {
+  commentLoader,
+  commentCountLoader,
+} from "../modules/loaders/CommentLoader";
 
 @ObjectType()
 @Entity()
@@ -25,6 +35,13 @@ export class Post extends BaseEntity {
   @Field(() => User, { nullable: true })
   author: User;
 
+  @Field(() => Int, { nullable: true })
+  commentCount(): Promise<number> {
+    return commentCountLoader.load(this.id);
+  }
+
   @Field(() => [Comment], { nullable: true })
-  comments: Comment[];
+  comments(): Promise<Comment[]> {
+    return commentLoader.load(this.id);
+  }
 }

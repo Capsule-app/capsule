@@ -5,6 +5,7 @@ export const postsQuery = gql`
     posts {
       id
       content
+      commentCount
       createdAt
       author {
         id

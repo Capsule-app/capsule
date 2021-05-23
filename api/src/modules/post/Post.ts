@@ -24,11 +24,6 @@ export class PostResolver {
     return await authorLoader.load(parent.authorId);
   }
 
-  @FieldResolver(() => [Comment], { nullable: true })
-  async comments(@Root() parent: Post): Promise<Array<Comment> | null> {
-    return await Comment.find({ where: { postId: parent.id } });
-  }
-
   @Query(() => [Post], { nullable: true })
   posts(): Promise<Array<Post>> {
     return Post.find({ order: { createdAt: "DESC" } });
