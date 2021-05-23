@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useTokenStore } from "lib/common/useTokenStore";
+import { useTokenStore } from "util/hooks/useTokenStore";
 
 export const useVerifyLoggedIn = () => {
   const { replace, asPath } = useRouter();
