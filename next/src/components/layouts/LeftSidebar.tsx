@@ -9,7 +9,7 @@ export const PeopleList: React.FC = () => {
   return (
     <>
       <div className="flex mb-7 h-6 items-center">
-        <Link href="/feed">
+        <Link href="/">
           <a>
             <Image src="/logo.png" alt="" width="40px" height="40px" />
           </a>

@@ -1,13 +1,9 @@
 import { createContext, useState } from "react";
-import { User } from "util/types/user";
-
-interface Props {
-  children?: React.ReactNode;
-}
+import { User, UnauthedUser } from "util/types/user";
 
 interface Context {
   user: User | null;
-  setUser: (user: User | null) => void;
+  setUser: (user: User | UnauthedUser | null) => void;
 }
 
 export const UserContext = createContext<Context>({
@@ -15,7 +11,9 @@ export const UserContext = createContext<Context>({
   setUser: () => null,
 });
 
-export const UserContextProvider: React.FC<Props> = ({ children }) => {
+export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<any>({ isLoading: true });
 
   return (

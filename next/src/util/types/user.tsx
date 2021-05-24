@@ -7,4 +7,10 @@ export interface User {
   password: string;
   id: string;
   isLoading?: boolean;
+  authed: boolean;
+}
+
+export interface UnauthedUser {
+  isLoading?: boolean;
+  authed: boolean;
 }

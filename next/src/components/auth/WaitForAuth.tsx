@@ -1,9 +1,7 @@
 import React from "react";
 import { useVerifyLoggedIn } from "../../util/hooks/useVerifyLogin";
 
-interface WaitForAuthProps {}
-
-export const WaitForAuth: React.FC<WaitForAuthProps> = ({ children }) => {
+export const WaitForAuth: React.FC = ({ children }) => {
   if (!useVerifyLoggedIn()) {
     return null;
   }

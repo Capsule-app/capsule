@@ -1,7 +1,7 @@
 import React from "react";
 import { MainLayout } from "./MainLayout";
-import { PeopleList } from "./PeopleList";
-import { ProfileBlock } from "./ProfileBlock";
+import { PeopleList } from "./LeftSidebar";
+import { ProfileBlock } from "./RightSidebar";
 
 interface Props {
   children?: React.ReactNode;

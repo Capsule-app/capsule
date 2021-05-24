@@ -1,16 +1,24 @@
 import React, { useContext } from "react";
 import { UserContext } from "lib/common/useUser";
 import { useTranslation } from "util/hooks/useTranslation";
+import { AuthContent } from "components/auth/AuthContent";
+import { UnauthedContent } from "components/auth/UnauthedContent";
 import Link from "next/link";
 
 export const ProfileBlock: React.FC = () => {
   const { user } = useContext(UserContext);
   const { t } = useTranslation();
 
-  if (!user || user.isLoading) return <p>loading</p>;
+  if (!user) return <p>No user</p>;
 
   return (
     <>
+      <AuthContent>
+        <p>hello authed user!</p>
+      </AuthContent>
+      <UnauthedContent>
+        <p>Who are you...?</p>
+      </UnauthedContent>
       <div className="flex justify-end mb-7 h-6 items-center">
         <Link href={`/u/${user.username}`}>
           <a>
@@ -21,7 +29,7 @@ export const ProfileBlock: React.FC = () => {
           </a>
         </Link>
       </div>
-      <div className="flex flex-1 flex-col overflow-y-auto space-y-5">
+      <div className="flex flex-1 flex-col overflow-y-auto space-y-5 scrollbar-thin scrollbar-thumb-primary-200">
         <section className="bg-primary-100 rounded-8 p-3 space-y-2">
           <div className="flex items-center space-x-2">
             <img src={user.avatarUrl} alt="" className="w-8 h-8 rounded-full" />
