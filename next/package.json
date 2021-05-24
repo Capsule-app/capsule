@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "yarn cache clean",
+    "prebuild": "rimraf .next && yarn cache clean",
     "build": "next build",
     "dev": "next dev",
     "start": "yarn build && next start",
