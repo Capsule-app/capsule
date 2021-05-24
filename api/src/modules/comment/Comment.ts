@@ -5,25 +5,16 @@ import {
   Arg,
   UseMiddleware,
   Ctx,
-  Root,
-  FieldResolver,
 } from "type-graphql";
 import { Comment } from "../../entity/Comment";
 import { Post } from "../../entity/Post";
-import { User } from "../../entity/User";
 import { CreateCommentInput } from "./CreateCommentInput";
 import { nanoid } from "nanoid";
 import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
-import { authorLoader } from "../loaders/AuthorLoader";
 
 @Resolver(Comment)
 export class CommentResolver {
-  @FieldResolver(() => User, { nullable: true })
-  async author(@Root() parent: Comment): Promise<User | null> {
-    return await authorLoader.load(parent.authorId);
-  }
-
   @Query(() => [Comment])
   comments(): Promise<Array<Comment>> {
     return Comment.find({ order: { createdAt: "DESC" } });

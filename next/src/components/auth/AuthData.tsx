@@ -21,7 +21,7 @@ export const AuthData: React.FC = ({ children }) => {
 
     let user = data && data.me;
     setUser({ ...user, isLoading: loading, authed: true });
-  }, [data, error]);
+  }, [data, error, asPath]);
 
   return <>{children}</>;
 };

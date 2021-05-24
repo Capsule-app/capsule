@@ -7,12 +7,12 @@ export const membershipLoader = new DataLoader(async (keys: string[]) => {
   const spaces = await Member.find({
     join: {
       alias: "membership",
-      innerJoinAndSelect: { test: "membership.space" },
+      innerJoinAndSelect: { space: "membership.space" },
     },
     where: { userId: In(keys) },
   });
 
-  const memberIdToSpace: { [key: number]: User[] } = {};
+  const memberIdToSpace: { [key: string]: User[] } = {};
 
   spaces.forEach((ab) => {
     if (ab.spaceId in memberIdToSpace) {

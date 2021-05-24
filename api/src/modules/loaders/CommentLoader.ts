@@ -26,7 +26,7 @@ export const commentCountLoader = new DataLoader(async (keys: string[]) => {
     where: { postId: In(keys) },
   });
 
-  const postIdToComments: { [key: number]: Comment[] } = {};
+  const postIdToComments: { [key: string]: Comment[] } = {};
 
   comments.forEach((ab) => {
     if (ab.postId in postIdToComments) {

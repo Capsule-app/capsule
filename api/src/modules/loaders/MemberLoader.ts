@@ -5,11 +5,11 @@ import DataLoader from "dataloader";
 
 export const memberLoader = new DataLoader(async (keys: string[]) => {
   const members = await Member.find({
-    join: { alias: "member", innerJoinAndSelect: { test: "member.user" } },
+    join: { alias: "member", innerJoinAndSelect: { user: "member.user" } },
     where: { spaceId: In(keys) },
   });
 
-  const spaceIdToMembers: { [key: number]: User[] } = {};
+  const spaceIdToMembers: { [key: string]: User[] } = {};
 
   members.forEach((ab) => {
     if (ab.spaceId in spaceIdToMembers) {

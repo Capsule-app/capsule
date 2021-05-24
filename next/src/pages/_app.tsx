@@ -1,7 +1,7 @@
 import React from "react";
 import { AppProps } from "next/app";
 import { UserContextProvider } from "lib/common/useUser";
-import { AuthData } from "components/auth/AuthedData";
+import { AuthData } from "components/auth/AuthData";
 import { MediaContextProvider } from "util/hooks/useScreenSize";
 import { LanguageProvider } from "lib/translations";
 import { ApolloProvider } from "@apollo/client/react";
