@@ -23,7 +23,7 @@ export const Post: React.FC<{ post: PostType }> = ({ post }) => {
   var emojified = post.content.replace(/:(\w+):/g, "![:$1:](/emoji/$1.png)");
 
   return (
-    <div className="flex space-x-3">
+    <div className="w-full flex space-x-3">
       <div className="flex-none flex flex-col items-center space-y-1">
         <img
           src={post.author.avatarUrl || "/default-profile.png"}

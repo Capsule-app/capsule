@@ -20,7 +20,7 @@ const SpacePage: React.FC = () => {
   return (
     <Wrapper title={`${space.name} / Capsule`}>
       <Header space={`${space.name}`} />
-      <div className="w-screen m:w-full">
+      <div className="mt-2 m:mt-0 space-y-3">
         {space.posts &&
           space.posts.map((post: PostType) => (
             <Post post={post} key={post.id} />

@@ -36,7 +36,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       </Media>
       <Media at="sm">
         <MiddlePanel>
-          <div className="px-2">{children}</div>
+          <div className="px-2 w-screen">{children}</div>
         </MiddlePanel>
       </Media>
     </main>

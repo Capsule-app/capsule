@@ -83,7 +83,7 @@ export const Header: React.FC<{ space: string }> = ({ space }) => {
                         />
                       </a>
                     </Link>
-                    <h3></h3>
+                    <h4>{space}</h4>
                   </div>
                   <Search className="w-4 h-4 text-primary-300" />
                 </div>
