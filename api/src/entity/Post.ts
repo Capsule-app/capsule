@@ -8,6 +8,7 @@ import {
 } from "../modules/loaders/CommentLoader";
 import { Space } from "./Space";
 import { authorLoader } from "../modules/loaders/AuthorLoader";
+import { spaceLoader } from "../modules/loaders/SpaceLoader";
 
 @ObjectType()
 @Entity()
@@ -44,5 +45,10 @@ export class Post extends BaseEntity {
   @Field(() => [Comment], { nullable: true })
   comments(): Promise<Comment[]> {
     return commentLoader.load(this.id);
+  }
+
+  @Field(() => Space, { nullable: true })
+  space(): Promise<Space> {
+    return spaceLoader.load(this.id);
   }
 }

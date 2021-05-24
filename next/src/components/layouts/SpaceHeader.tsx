@@ -77,7 +77,7 @@ export const Header: React.FC<{ space: string }> = ({ space }) => {
                     <Link href="/u/alex">
                       <a>
                         <img
-                          src={user.avatarUrl}
+                          src={user.avatarUrl || "/default-profile.png"}
                           alt=""
                           className="w-5.5 h-5.5 rounded-full flex-none select-none"
                         />
@@ -94,12 +94,6 @@ export const Header: React.FC<{ space: string }> = ({ space }) => {
         <Media greaterThanOrEqual="md">
           <div className="flex justify-between items-center mb-5">
             <h3>{space}</h3>
-            <button
-              onClick={() => setOpen(true)}
-              className="focus outline-none focus:ring-4 focus:ring-secondary-ring font-serif text-sm text-white font-bold py-2 px-6 rounded-lg transition duration-200 ease-in-out bg-blue"
-            >
-              Create Post
-            </button>
           </div>
         </Media>
       </header>

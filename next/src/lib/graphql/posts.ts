@@ -13,6 +13,9 @@ export const postsQuery = gql`
         username
         avatarUrl
       }
+      space {
+        name
+      }
     }
   }
 `;

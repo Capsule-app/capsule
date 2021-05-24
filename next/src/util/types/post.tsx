@@ -1,3 +1,4 @@
+import { Space } from "./space";
 import { User } from "./user";
 
 export interface Post {
@@ -7,4 +8,5 @@ export interface Post {
   createdAt: string;
   author?: User;
   authorId: string;
+  space?: Space;
 }

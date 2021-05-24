@@ -77,7 +77,7 @@ export const Header: React.FC = () => {
                     <Link href="/u/alex">
                       <a>
                         <img
-                          src={user.avatarUrl}
+                          src={user.avatarUrl || "/default-profile.png"}
                           alt=""
                           className="w-5.5 h-5.5 rounded-full flex-none select-none"
                         />

@@ -4,6 +4,8 @@ import { Wrapper } from "components/common/Wrapper";
 import { Header } from "components/layouts/SpaceHeader";
 import { useQuery } from "@apollo/client";
 import { spaceQuery } from "lib/graphql/space";
+import { Post } from "components/post/Post";
+import { Post as PostType } from "util/types/post";
 
 const SpacePage: React.FC = () => {
   const { query } = useRouter();
@@ -13,11 +15,17 @@ const SpacePage: React.FC = () => {
 
   if (loading || !data) return <div>loading</div>;
 
+  const space = data.spaceByName;
+
   return (
-    <Wrapper title={`${data.spaceByName.name} / Capsule`}>
-      <Header space={`${data.spaceByName.name}`} />
-      {JSON.stringify(data.spaceByName)}
-      <p>this is the space page {query.name}</p>
+    <Wrapper title={`${space.name} / Capsule`}>
+      <Header space={`${space.name}`} />
+      <div className="w-screen m:w-full">
+        {space.posts &&
+          space.posts.map((post: PostType) => (
+            <Post post={post} key={post.id} />
+          ))}
+      </div>
     </Wrapper>
   );
 };

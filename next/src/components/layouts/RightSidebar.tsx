@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { UserContext } from "lib/common/useUser";
 import { useTranslation } from "util/hooks/useTranslation";
 import { AuthContent } from "components/auth/AuthContent";
-import { UnauthedContent } from "components/auth/UnauthedContent";
+// import { UnauthedContent } from "components/auth/UnauthedContent";
 import Link from "next/link";
 
 export const ProfileBlock: React.FC = () => {
@@ -16,14 +16,11 @@ export const ProfileBlock: React.FC = () => {
       <AuthContent>
         <p>hello authed user!</p>
       </AuthContent>
-      <UnauthedContent>
-        <p>Who are you...?</p>
-      </UnauthedContent>
       <div className="flex justify-end mb-7 h-6 items-center">
-        <Link href={`/u/${user.username}`}>
+        <Link href={user.authed ? `/u/${user.username}` : "/login"}>
           <a>
             <img
-              src={user.avatarUrl}
+              src={user.avatarUrl || "/default-profile.png"}
               className="w-6 h-6 rounded-full flex-none select-none"
             />
           </a>
@@ -32,7 +29,11 @@ export const ProfileBlock: React.FC = () => {
       <div className="flex flex-1 flex-col overflow-y-auto space-y-5 scrollbar-thin scrollbar-thumb-primary-200">
         <section className="bg-primary-100 rounded-8 p-3 space-y-2">
           <div className="flex items-center space-x-2">
-            <img src={user.avatarUrl} alt="" className="w-8 h-8 rounded-full" />
+            <img
+              src={user.avatarUrl || "/default-profile.png"}
+              alt=""
+              className="w-8 h-8 rounded-full"
+            />
             <div>
               <h4>{user.name}</h4>
               <p className="-mt-1 font-medium text-primary-300">{`@${user.username}`}</p>

@@ -11,6 +11,18 @@ export const spaceQuery = gql`
         username
         avatarUrl
       }
+      posts {
+        id
+        content
+        commentCount
+        createdAt
+        author {
+          id
+          name
+          username
+          avatarUrl
+        }
+      }
     }
   }
 `;

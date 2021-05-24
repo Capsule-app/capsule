@@ -10,12 +10,9 @@ import {
 } from "react-bootstrap-icons";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
+import Link from "next/link";
 
-interface Props {
-  post: PostType;
-}
-
-export const Post: React.FC<Props> = ({ post }) => {
+export const Post: React.FC<{ post: PostType }> = ({ post }) => {
   const date = getPostDate(post.createdAt);
 
   const [liked, setLiked] = useState(false);
@@ -38,6 +35,11 @@ export const Post: React.FC<Props> = ({ post }) => {
         <header className="flex items-center space-x-1">
           <p className="font-bold">{post.author.name}</p>
           <p className="text-primary-300">@{post.author.username}</p>
+          {post.space && (
+            <Link href={`/s/${post.space.name}`}>
+              <a className="text-primary-400 text-sm">• s/{post.space.name}</a>
+            </Link>
+          )}
         </header>
         <ReactMarkdown
           allowedElements={["p", "img"]}
