@@ -1,5 +1,5 @@
 import { Member } from "../../entity/Member";
-import { User } from "../../entity/User";
+import { Space } from "../../entity/Space";
 import { In } from "typeorm";
 import DataLoader from "dataloader";
 
@@ -12,7 +12,7 @@ export const membershipLoader = new DataLoader(async (keys: string[]) => {
     where: { userId: In(keys) },
   });
 
-  const memberIdToSpace: { [key: string]: User[] } = {};
+  const memberIdToSpace: { [key: string]: Space[] } = {};
 
   spaces.forEach((ab) => {
     if (ab.spaceId in memberIdToSpace) {

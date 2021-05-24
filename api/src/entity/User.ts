@@ -39,8 +39,8 @@ export class User extends BaseEntity {
   @ManyToMany(() => Space, (space) => space.members)
   FK_memberships: Promise<Space[]>;
 
-  @Field(() => [User], { nullable: true })
-  async memberships(): Promise<Space[]> {
-    return await membershipLoader.load(this.id);
+  @Field(() => [Space], { nullable: true })
+  memberships(): Promise<Space[]> {
+    return membershipLoader.load(this.id);
   }
 }
