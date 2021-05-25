@@ -16,6 +16,7 @@ import { QueryInput } from "./QueryInput";
 export class UserResolver {
   @Query(() => User, { nullable: true })
   me(@Ctx() ctx: Context): Promise<User | undefined> {
+    // @todo Fix isAuth middleware
     // if (!ctx.payload!.userId) return undefined;
 
     return User.findOne(ctx.req.session.userId);
