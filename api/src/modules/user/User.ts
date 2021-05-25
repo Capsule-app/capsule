@@ -1,14 +1,6 @@
-import {
-  Resolver,
-  Query,
-  Ctx,
-  UseMiddleware,
-  Arg,
-  Mutation,
-} from "type-graphql";
+import { Resolver, Query, Ctx, Arg, Mutation } from "type-graphql";
 import { getConnection } from "typeorm";
 import { User } from "../../entity/User";
-import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
 import { QueryInput } from "./QueryInput";
 
@@ -19,6 +11,7 @@ export class UserResolver {
     // @todo Fix isAuth middleware
     // if (!ctx.payload!.userId) return undefined;
 
+    if (!ctx.req.session.userId) return undefined;
     return User.findOne(ctx.req.session.userId);
   }
 
@@ -40,11 +33,6 @@ export class UserResolver {
   @Query(() => User, { nullable: true })
   userByQuery(@Arg("query") query: QueryInput): Promise<User | undefined> {
     return User.findOne({ where: query });
-  }
-
-  @Query(() => String, { nullable: true })
-  cookies(@Ctx() ctx: Context) {
-    return ctx.req.session.userId;
   }
 
   @Mutation(() => Boolean)
