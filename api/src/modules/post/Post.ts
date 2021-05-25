@@ -9,9 +9,9 @@ import {
 import { Post } from "../../entity/Post";
 import { CreatePostInput } from "./CreatePostInput";
 import { nanoid } from "nanoid";
-import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
 import { SpacePost } from "../../entity/SpacePost";
+import { hasSession } from "../../auth/hasSession";
 
 @Resolver(Post)
 export class PostResolver {
@@ -26,16 +26,16 @@ export class PostResolver {
   }
 
   @Mutation(() => Boolean)
-  @UseMiddleware(isAuth)
+  @UseMiddleware(hasSession)
   async createPost(
     @Arg("data") { content }: CreatePostInput,
-    @Ctx() ctx: Context
+    @Ctx() { req }: Context
   ): Promise<boolean> {
     const post = await Post.create({
       id: nanoid(),
       createdAt: String(Date.now()),
       content,
-      authorId: ctx.payload!.userId,
+      authorId: req.session.userId,
     }).save();
 
     await SpacePost.create({

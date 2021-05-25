@@ -10,8 +10,8 @@ import { Space } from "../../entity/Space";
 import { Member } from "../../entity/Member";
 import { CreateSpaceInput } from "./CreateSpaceInput";
 import { nanoid } from "nanoid";
-import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
+import { hasSession } from "../../auth/hasSession";
 
 @Resolver(Space)
 export class SpaceResolver {
@@ -31,28 +31,28 @@ export class SpaceResolver {
   }
 
   @Mutation(() => Boolean)
-  @UseMiddleware(isAuth)
+  @UseMiddleware(hasSession)
   async createSpace(
     @Arg("data") { name }: CreateSpaceInput,
-    @Ctx() ctx: Context
+    @Ctx() { req }: Context
   ): Promise<boolean> {
     await Space.create({
       id: nanoid(),
       createdAt: String(Date.now()),
       name,
-      authorId: ctx.payload!.userId,
+      authorId: req.session.userId,
     }).save();
 
     return true;
   }
 
   @Mutation(() => Boolean)
-  @UseMiddleware(isAuth)
+  @UseMiddleware(hasSession)
   async joinSpace(
-    @Ctx() ctx: Context,
+    @Ctx() { req }: Context,
     @Arg("spaceId", () => String) spaceId: string
   ) {
-    await Member.create({ userId: ctx.payload!.userId, spaceId }).save();
+    await Member.create({ userId: req.session.userId, spaceId }).save();
     return true;
   }
 }

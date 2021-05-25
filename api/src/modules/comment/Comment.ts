@@ -10,8 +10,8 @@ import { Comment } from "../../entity/Comment";
 import { Post } from "../../entity/Post";
 import { CreateCommentInput } from "./CreateCommentInput";
 import { nanoid } from "nanoid";
-import { isAuth } from "../../auth/isAuth";
 import { Context } from "../../types/Context";
+import { hasSession } from "../../auth/hasSession";
 
 @Resolver(Comment)
 export class CommentResolver {
@@ -26,7 +26,7 @@ export class CommentResolver {
   }
 
   @Mutation(() => Boolean)
-  @UseMiddleware(isAuth)
+  @UseMiddleware(hasSession)
   async createComment(
     @Arg("data") { content, postId }: CreateCommentInput,
     @Ctx() ctx: Context
@@ -35,7 +35,7 @@ export class CommentResolver {
       id: nanoid(),
       createdAt: String(Date.now()),
       content,
-      authorId: ctx.payload!.userId,
+      authorId: ctx.req.session.userId,
       postId,
     }).save();
 

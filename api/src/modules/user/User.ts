@@ -1,17 +1,22 @@
-import { Resolver, Query, Ctx, Arg, Mutation } from "type-graphql";
+import {
+  Resolver,
+  Query,
+  Ctx,
+  Arg,
+  Mutation,
+  UseMiddleware,
+} from "type-graphql";
 import { getConnection } from "typeorm";
 import { User } from "../../entity/User";
 import { Context } from "../../types/Context";
 import { QueryInput } from "./QueryInput";
+import { hasSession } from "../../auth/hasSession";
 
 @Resolver()
 export class UserResolver {
   @Query(() => User, { nullable: true })
+  @UseMiddleware(hasSession)
   me(@Ctx() ctx: Context): Promise<User | undefined> {
-    // @todo Fix isAuth middleware
-    // if (!ctx.payload!.userId) return undefined;
-
-    if (!ctx.req.session.userId) return undefined;
     return User.findOne(ctx.req.session.userId);
   }
 
