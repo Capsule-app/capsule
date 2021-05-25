@@ -15,6 +15,7 @@ export const ProfileBlock: React.FC = () => {
     <>
       <AuthContent>
         <p>hello authed user!</p>
+        {JSON.stringify(user)}
       </AuthContent>
       <div className="flex justify-end mb-7 h-6 items-center">
         <Link href={user.authed ? `/u/${user.username}` : "/login"}>

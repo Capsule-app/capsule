@@ -12,7 +12,7 @@ export class RegisterResolver {
   ): Promise<boolean> {
     const hashed = await bcrypt.hash(password, 10);
 
-    await User.create({
+    const user = await User.create({
       name,
       username,
       email,

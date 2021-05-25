@@ -15,11 +15,10 @@ import { QueryInput } from "./QueryInput";
 @Resolver()
 export class UserResolver {
   @Query(() => User, { nullable: true })
-  @UseMiddleware(isAuth)
   me(@Ctx() ctx: Context): Promise<User | undefined> {
-    if (!ctx.payload!.userId) return undefined;
+    // if (!ctx.payload!.userId) return undefined;
 
-    return User.findOne(ctx.payload!.userId);
+    return User.findOne(ctx.req.session.userId);
   }
 
   @Query(() => [User])
@@ -40,6 +39,11 @@ export class UserResolver {
   @Query(() => User, { nullable: true })
   userByQuery(@Arg("query") query: QueryInput): Promise<User | undefined> {
     return User.findOne({ where: query });
+  }
+
+  @Query(() => String, { nullable: true })
+  cookies(@Ctx() ctx: Context) {
+    return ctx.req.session.userId;
   }
 
   @Mutation(() => Boolean)

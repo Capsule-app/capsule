@@ -17,7 +17,7 @@ export class LoginResolver {
   async login(
     @Arg("email") email: string,
     @Arg("password") password: string,
-    @Ctx() { res }: Context
+    @Ctx() { session, res }: Context
   ): Promise<LoginResponse | null> {
     const user = await User.findOne({ where: { email } });
     if (!user) return null;
@@ -26,6 +26,8 @@ export class LoginResolver {
     if (!valid) return null;
 
     sendRefreshToken(res, createRefreshToken(user));
+
+    session.userId = user.id;
 
     return {
       accessToken: createAccessToken(user),

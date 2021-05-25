@@ -27,6 +27,7 @@
     "zustand": "^3.5.1"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.6",
     "@types/next": "^9.0.0",
     "@types/react": "^17.0.5",
     "@types/react-linkify": "^1.0.0",

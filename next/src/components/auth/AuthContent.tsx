@@ -6,6 +6,6 @@ export const AuthContent: React.FC<{ children?: React.ReactNode }> = ({
 }) => {
   const { user } = useContext(UserContext);
 
-  if (!user || !user.authed) return null;
+  if (!user || user.isLoading || !user.authed) return null;
   return <>{children}</>;
 };

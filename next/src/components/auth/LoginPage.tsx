@@ -13,7 +13,9 @@ export const LoginPage: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log(data);
     if (!isClient() || !data) return;
+
     localStorage.setItem("uid", data.login.accessToken);
     window.location.reload();
   }, [data]);

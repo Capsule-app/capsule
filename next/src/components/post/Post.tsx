@@ -33,20 +33,24 @@ export const Post: React.FC<{ post: PostType }> = ({ post }) => {
       </div>
       <div className="space-y-1 w-full">
         <header className="flex items-center space-x-1">
-          <p className="font-bold">{post.author.name}</p>
-          <p className="text-primary-300">@{post.author.username}</p>
+          <p className="text-primary-300 text-sm">by</p>
+          <p className="font-bold text-sm">u/{post.author.name}</p>
           {post.space && (
-            <Link href={`/s/${post.space.name}`}>
-              <a className="text-primary-400 text-sm">• s/{post.space.name}</a>
-            </Link>
+            <>
+              <p className="text-primary-300 text-sm">in</p>
+              <Link href={`/s/${post.space.name}`}>
+                <a className="font-bold text-sm">s/{post.space.name}</a>
+              </Link>
+            </>
           )}
+          <p className="text-primary-400 text-sm">{date}</p>
         </header>
         <ReactMarkdown
           allowedElements={["p", "img"]}
           unwrapDisallowed
           components={{
             p: ({ node, ...props }) => (
-              <p className="flex items-center" {...props} />
+              <p className="flex items-center text-lg" {...props} />
             ),
             img: ({ node, ...props }) => (
               <div className="mx-1 flex items-center justify-center">
@@ -68,7 +72,6 @@ export const Post: React.FC<{ post: PostType }> = ({ post }) => {
             text="Share"
             icon={<ReplyFill className="text-2xl text-primary-400" />}
           />
-          <p className="text-primary-300 text-sm hidden m:block">{date}</p>
         </div>
       </div>
       <div className="flex-none flex flex-col items-center">

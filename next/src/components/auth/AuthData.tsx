@@ -14,6 +14,8 @@ export const AuthData: React.FC = ({ children }) => {
   useEffect(() => {
     if (asPath === "/login" || !isClient()) return;
 
+    console.log(data, error);
+
     if (error) {
       localStorage.removeItem("uid");
       return setUser({ isLoading: false, authed: false });
