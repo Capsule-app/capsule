@@ -7,8 +7,9 @@ import { CreatePostModal } from "components/modals/CreatePost";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { Space } from "util/types/space";
 
-export const Header: React.FC<{ space: string }> = ({ space }) => {
+export const Header: React.FC<{ space: Space }> = ({ space }) => {
   const { user } = useContext(UserContext);
   const { t } = useTranslation();
   const { push } = useRouter();
@@ -83,7 +84,7 @@ export const Header: React.FC<{ space: string }> = ({ space }) => {
                         />
                       </a>
                     </Link>
-                    <h4>{space}</h4>
+                    <h4>{space.name}</h4>
                   </div>
                   <Search className="w-4 h-4 text-primary-300" />
                 </div>
@@ -91,11 +92,6 @@ export const Header: React.FC<{ space: string }> = ({ space }) => {
             </div>
           </div>
         </div>
-        <Media greaterThanOrEqual="md">
-          <div className="flex justify-between items-center mb-5">
-            <h3>{space}</h3>
-          </div>
-        </Media>
       </header>
     </>
   );

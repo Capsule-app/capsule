@@ -28,7 +28,7 @@ export class PostResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(hasSession)
   async createPost(
-    @Arg("data") { content }: CreatePostInput,
+    @Arg("data") { content, spaceId }: CreatePostInput,
     @Ctx() { req }: Context
   ): Promise<boolean> {
     const post = await Post.create({
@@ -38,10 +38,11 @@ export class PostResolver {
       authorId: req.session.userId,
     }).save();
 
-    await SpacePost.create({
-      postId: post.id,
-      spaceId: "U75ga6EMaROHkNNYOdjgQ",
-    }).save();
+    if (spaceId)
+      await SpacePost.create({
+        postId: post.id,
+        spaceId,
+      }).save();
 
     return true;
   }

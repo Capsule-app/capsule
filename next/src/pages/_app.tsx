@@ -5,12 +5,15 @@ import { AuthData } from "components/auth/AuthData";
 import { MediaContextProvider } from "util/hooks/useScreenSize";
 import { LanguageProvider } from "lib/translations";
 import { ApolloProvider } from "@apollo/client/react";
-import { client } from "lib/apollo/apolloClient";
+// import { client } from "lib/apollo/apolloClient";
+import { useApollo } from "lib/apollo";
 import "styles/globals.css";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const apolloClient = useApollo(pageProps.initialApolloState);
+
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <LanguageProvider>
         <UserContextProvider>
           <AuthData>

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { UserContext } from "lib/common/useUser";
 import { useTranslation } from "util/hooks/useTranslation";
-import { AuthContent } from "components/auth/AuthContent";
+// import { AuthContent } from "components/auth/AuthContent";
 // import { UnauthedContent } from "components/auth/UnauthedContent";
 import Link from "next/link";
 
@@ -13,10 +13,6 @@ export const ProfileBlock: React.FC = () => {
 
   return (
     <>
-      <AuthContent>
-        <p>hello authed user!</p>
-        {JSON.stringify(user)}
-      </AuthContent>
       <div className="flex justify-end mb-7 h-6 items-center">
         <Link href={user.authed ? `/u/${user.username}` : "/login"}>
           <a>

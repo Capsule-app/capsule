@@ -8,8 +8,6 @@ import {
   ChatSquareFill,
   ReplyFill,
 } from "react-bootstrap-icons";
-import ReactMarkdown from "react-markdown";
-import Image from "next/image";
 import Link from "next/link";
 
 export const Post: React.FC<{ post: PostType }> = ({ post }) => {
@@ -20,10 +18,10 @@ export const Post: React.FC<{ post: PostType }> = ({ post }) => {
 
   if (!post.author) return null;
 
-  var emojified = post.content.replace(/:(\w+):/g, "![:$1:](/emoji/$1.png)");
+  // var emojified = post.content.replace(/:(\w+):/g, "![:$1:](/emoji/$1.png)");
 
   return (
-    <div className="w-full flex space-x-3">
+    <div className="w-full flex space-x-3 border-b-2 m:border-b-0 border-primary-100">
       <div className="flex-none flex flex-col items-center space-y-1">
         <img
           src={post.author.avatarUrl || "/default-profile.png"}
@@ -34,33 +32,24 @@ export const Post: React.FC<{ post: PostType }> = ({ post }) => {
       <div className="space-y-1 w-full">
         <header className="flex items-center space-x-1">
           <p className="text-primary-300 text-sm">by</p>
-          <p className="font-bold text-sm">u/{post.author.name}</p>
+          <Link href={`/u/${post.author.username}`}>
+            <a className="font-bold text-sm hover:underline">
+              u/{post.author.username}
+            </a>
+          </Link>
           {post.space && (
             <>
               <p className="text-primary-300 text-sm">in</p>
               <Link href={`/s/${post.space.name}`}>
-                <a className="font-bold text-sm">s/{post.space.name}</a>
+                <a className="font-bold text-sm hover:underline">
+                  s/{post.space.name}
+                </a>
               </Link>
             </>
           )}
           <p className="text-primary-400 text-sm">{date}</p>
         </header>
-        <ReactMarkdown
-          allowedElements={["p", "img"]}
-          unwrapDisallowed
-          components={{
-            p: ({ node, ...props }) => (
-              <p className="flex items-center text-lg" {...props} />
-            ),
-            img: ({ node, ...props }) => (
-              <div className="mx-1 flex items-center justify-center">
-                <Image width="24px" height="24px" {...(props as any)} />
-              </div>
-            ),
-          }}
-        >
-          {emojified}
-        </ReactMarkdown>
+        <p className="text-lg">{post.content}</p>
         <div className="-ml-1 h-5 flex items-center">
           <FooterButton
             text={`${post.commentCount || "No"} comment${

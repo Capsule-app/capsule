@@ -23,6 +23,14 @@ export class Space extends BaseEntity {
   @Column()
   name: string;
 
+  @Field(() => String, { nullable: true })
+  @Column("character varying", { default: "" })
+  avatarUrl: string;
+
+  @Field(() => String, { nullable: true })
+  @Column("character varying", { default: "" })
+  description: string;
+
   @Field()
   @Column()
   createdAt: string;

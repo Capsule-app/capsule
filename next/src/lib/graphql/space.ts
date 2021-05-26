@@ -5,6 +5,8 @@ export const spaceQuery = gql`
     spaceByName(name: $name) {
       id
       name
+      avatarUrl
+      description
       members {
         id
         name

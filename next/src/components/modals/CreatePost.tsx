@@ -19,7 +19,7 @@ const customStyles = {
     borderRadius: 8,
     padding: "40px 40px 40px 40px",
     transform: "translate(-50%, -50%)",
-    backgroundColor: "var(--color-primary-100)",
+    backgroundColor: "white",
     border: "none",
     maxHeight: "80vh",
     width: "90%",
@@ -57,7 +57,7 @@ export const CreatePostModal: React.FC<Props> = ({
       <div className="flex justify-end absolute top-3 right-3">
         <button
           onClick={onClose}
-          className="rounded-lg p-0.5 hover:bg-primary-200"
+          className="rounded-lg p-0.5 hover:bg-primary-100"
         >
           <X className="text-3xl" />
         </button>
@@ -72,14 +72,14 @@ export const CreatePostModal: React.FC<Props> = ({
         <div className="flex h-full w-full col-span-2">
           <input
             placeholder="Title"
-            className="outline-none w-full bg-primary-200 p-2 rounded-lg"
+            className="outline-none w-full bg-primary-100 p-2 rounded-lg"
           />
         </div>
         <div className="block w-full h-11 col-span-3">
           <textarea
             {...register("content")}
             placeholder="What's new, Alex?"
-            className="outline-none resize-none w-full h-full bg-primary-200 p-2 rounded-lg"
+            className="outline-none resize-none w-full h-full bg-primary-100 p-2 rounded-lg"
           />
         </div>
         <div className="flex pt-2 space-x-3 col-span-full items-center">

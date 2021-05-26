@@ -3,4 +3,6 @@ export interface Space {
   name: string;
   createdAt: string;
   authorId: string;
+  avatarUrl?: string;
+  description?: string;
 }

@@ -4,4 +4,7 @@ import { InputType, Field } from "type-graphql";
 export class CreatePostInput {
   @Field()
   content: string;
+
+  @Field(() => String, { nullable: true })
+  spaceId: string;
 }
