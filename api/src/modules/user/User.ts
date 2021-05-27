@@ -6,7 +6,7 @@ import {
   Mutation,
   UseMiddleware,
 } from "type-graphql";
-import { getConnection } from "typeorm";
+import { getConnection, ILike } from "typeorm";
 import { User } from "../../entity/User";
 import { Context } from "../../types/Context";
 import { QueryInput } from "./QueryInput";
@@ -32,7 +32,7 @@ export class UserResolver {
 
   @Query(() => User, { nullable: true })
   userByUsername(@Arg("username") username: string) {
-    return User.findOne({ where: { username: username } });
+    return User.findOne({ where: { username: ILike(`%${username}%`) } });
   }
 
   @Query(() => User, { nullable: true })

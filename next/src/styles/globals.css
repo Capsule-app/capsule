@@ -143,6 +143,7 @@ html {
 
 #__next {
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 textarea {

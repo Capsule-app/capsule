@@ -5,7 +5,6 @@ import { userQuery } from "lib/gql/user";
 import { Post } from "components/post/Post";
 import { Post as PostType } from "util/types/post";
 import { OpenGraph } from "components/common/OpenGraph";
-import Link from "next/link";
 import millify from "millify";
 import { initializeApollo } from "lib/apollo";
 import { GetServerSideProps } from "next";
@@ -25,15 +24,7 @@ const UserPage: React.FC<{ data: any }> = ({ data }) => {
       <Header space={user} />
       <div className="mt-2 space-y-4">
         <div className="flex space-x-5 font-serif">
-          <Link href={`/u/${user.username}`}>
-            <a className="flex-none">
-              <img
-                src={user.avatarUrl}
-                alt=""
-                className="w-10 h-10 rounded-full"
-              />
-            </a>
-          </Link>
+          <img src={user.avatarUrl} alt="" className="w-10 h-10 rounded-full" />
           <div className="w-full">
             <p className="text-2xl font-bold">{user.username}</p>
             <p className="text-lg -mt-1">{user.name}</p>
@@ -55,9 +46,9 @@ const UserPage: React.FC<{ data: any }> = ({ data }) => {
             <span></span>
             <p className="font-extrabold font-serif">{millify(2500)}</p>
             <p>follower{user.posts.length > 1 ? "s" : ""}</p>
-            <p className="text-sm">•</p>
-            <p>Joined</p>
-            <p className="font-bold font-serif">July 2017</p>
+            <span></span>
+            <p className="font-extrabold font-serif">{millify(100)}</p>
+            <p>following</p>
           </div>
           <p>{user.bio || "No bio yet."}</p>
         </div>

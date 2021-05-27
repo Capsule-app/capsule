@@ -14,6 +14,9 @@ export const userQuery = gql`
         content
         commentCount
         createdAt
+        space {
+          name
+        }
       }
     }
   }
