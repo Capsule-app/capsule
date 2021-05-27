@@ -8,7 +8,6 @@ import { Post } from "components/post/Post";
 import { Post as PostType } from "util/types/post";
 import { OpenGraph } from "components/common/OpenGraph";
 import Link from "next/link";
-import Head from "next/head";
 import millify from "millify";
 
 const UserPage: React.FC = () => {
