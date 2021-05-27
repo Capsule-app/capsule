@@ -1,5 +1,5 @@
 # Capsule
-<strong>Providing free speech with no limits 🐬</strong>
+<strong>Promoting free speech ✌️</strong>
 
 ## Structure
 | Codebase              |      Description          |
