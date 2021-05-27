@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Wrapper } from "components/common/Wrapper";
 import { Header } from "components/layouts/SpaceHeader";
 import { useQuery } from "@apollo/client";
-import { spaceQuery } from "lib/graphql/space";
+import { spaceQuery } from "lib/gql/space";
 import { Post } from "components/post/Post";
 import { Post as PostType } from "util/types/post";
 
@@ -21,7 +21,7 @@ const SpacePage: React.FC = () => {
     <Wrapper title={`${space.name} / Capsule`}>
       <Header space={space} />
       <div>
-        <div className="flex flex-col justify-center items-center w-full space-y-1">
+        <div className="flex flex-col justify-center items-center w-full space-y-1 mt-2 m:mt-0">
           <img src={space.avatarUrl} alt="" className="w-7 h-7 rounded-full" />
           <h3 className="text-3xl font-serif">{space.name}</h3>
           <p className="text-center text-primary-400">

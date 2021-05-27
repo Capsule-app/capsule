@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { X } from "react-bootstrap-icons";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
-import { createPostMutation } from "lib/graphql/createPost";
+import { createPostMutation } from "lib/gql/createPost";
 
 const customStyles = {
   overlay: {

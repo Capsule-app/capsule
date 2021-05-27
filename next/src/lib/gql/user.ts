@@ -8,6 +8,13 @@ export const userQuery = gql`
       username
       avatarUrl
       bio
+      createdAt
+      posts {
+        id
+        content
+        commentCount
+        createdAt
+      }
     }
   }
 `;

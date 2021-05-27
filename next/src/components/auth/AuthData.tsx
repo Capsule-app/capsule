@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { UserContext } from "lib/common/useUser";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
-import { meQuery } from "lib/graphql/me";
+import { meQuery } from "lib/gql/me";
 import { isClient } from "lib/constants";
 
 export const AuthData: React.FC = ({ children }) => {

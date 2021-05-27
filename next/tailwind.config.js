@@ -110,6 +110,7 @@ module.exports = {
       "5l": "10rem",
       "n1/2": "-50%",
       24: "24rem",
+      200: "200px",
       400: "400px",
     },
     gridTemplateColumns: {
@@ -139,6 +140,9 @@ module.exports = {
       },
       transitionDuration: {
         400: "400ms",
+      },
+      minWidth: {
+        200: "200px",
       },
       keyframes: {
         breathe: {

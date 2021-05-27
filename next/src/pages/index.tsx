@@ -1,5 +1,5 @@
 import React from "react";
-import { postsQuery } from "lib/graphql/posts";
+import { postsQuery } from "lib/gql/posts";
 import { Post as PostType } from "util/types/post";
 import { Wrapper } from "components/common/Wrapper";
 import { Header } from "components/layouts/Header";

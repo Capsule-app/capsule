@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
-import { loginQuery } from "lib/graphql/login";
+import { loginQuery } from "lib/gql/login";
 import { isClient } from "lib/constants";
 
 export const LoginPage: React.FC = () => {
