@@ -1,22 +1,17 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { Wrapper } from "components/common/Wrapper";
 import { Header } from "components/layouts/SpaceHeader";
-import { useQuery } from "@apollo/client";
 import { userQuery } from "lib/gql/user";
 import { Post } from "components/post/Post";
 import { Post as PostType } from "util/types/post";
 import { OpenGraph } from "components/common/OpenGraph";
 import Link from "next/link";
 import millify from "millify";
+import { initializeApollo } from "lib/apollo";
+import { GetServerSideProps } from "next";
 
-const UserPage: React.FC = () => {
-  const { query } = useRouter();
-  const { data } = useQuery(userQuery, {
-    variables: { username: query.username },
-  });
-
-  if (!data) return <div>loading...</div>;
+const UserPage: React.FC<{ data: any }> = ({ data }) => {
+  if (!data) return null;
 
   const user = data.userByUsername;
 
@@ -75,6 +70,23 @@ const UserPage: React.FC = () => {
       </div>
     </Wrapper>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { username } = params as any;
+
+  const apolloClient = initializeApollo();
+
+  const { data } = await apolloClient.query({
+    query: userQuery,
+    variables: { username },
+  });
+
+  return {
+    props: {
+      data: data,
+    },
+  };
 };
 
 export default UserPage;
