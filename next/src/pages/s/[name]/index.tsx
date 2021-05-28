@@ -6,6 +6,7 @@ import { Post } from "components/post/Post";
 import { Post as PostType } from "util/types/post";
 import { GetServerSideProps } from "next";
 import { initializeApollo } from "lib/apollo";
+import { OpenGraph } from "components/common/OpenGraph";
 
 const SpacePage: React.FC<{ data: any }> = ({ data }) => {
   if (!data) return <div>loading</div>;
@@ -13,7 +14,12 @@ const SpacePage: React.FC<{ data: any }> = ({ data }) => {
   const space = data.spaceByName;
 
   return (
-    <Wrapper title={`${space.name} / Capsule`}>
+    <Wrapper>
+      <OpenGraph
+        title={`${space.name} - Capsule`}
+        description={space.description || "This space has no description."}
+        image={space.avatarUrl}
+      />
       <Header space={space} />
       <div>
         <div className="flex flex-col justify-center items-center w-full space-y-1 mt-2 m:mt-0">
