@@ -4,10 +4,13 @@ import { Post as PostType } from "util/types/post";
 import { Wrapper } from "components/common/Wrapper";
 import { Header } from "components/layouts/Header";
 import { Post } from "components/post/Post";
-import { GetServerSideProps } from "next";
-import { initializeApollo } from "lib/apollo";
+import { useQuery } from "@apollo/client";
 
-const FeedPage: React.FC<{ data: any }> = ({ data }) => {
+const FeedPage: React.FC = () => {
+  const { data, loading } = useQuery(postsQuery);
+
+  if (!data || loading) return null;
+
   return (
     <Wrapper title="Your Feed | Capsule">
       <Header />
@@ -20,21 +23,6 @@ const FeedPage: React.FC<{ data: any }> = ({ data }) => {
       </div>
     </Wrapper>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const apolloClient = initializeApollo();
-
-  const { data } = await apolloClient.query({
-    query: postsQuery,
-  });
-
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-      data,
-    },
-  };
 };
 
 export default FeedPage;

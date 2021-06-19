@@ -3,10 +3,12 @@ import { Field, ID, ObjectType } from "type-graphql";
 import { User } from "./User";
 import { Member } from "./Member";
 import { SpacePost } from "./SpacePost";
-import { memberLoader } from "../modules/loaders/MemberLoader";
 import { Post } from "./Post";
-import { postLoader } from "../modules/loaders/PostLoader";
-import { authorLoader } from "../modules/loaders/AuthorLoader";
+import { authorLoader } from "../loaders/AuthorLoader";
+import { RelationshipLoader } from "../loaders/RelationshipLoader";
+
+const memberLoader = RelationshipLoader(Member, User, "user", "spaceId");
+const postLoader = RelationshipLoader(SpacePost, Post, "post", "spaceId");
 
 @ObjectType()
 @Entity()

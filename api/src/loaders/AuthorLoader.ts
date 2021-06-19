@@ -1,4 +1,4 @@
-import { User } from "../../entity/User";
+import { User } from "../entity/User";
 import { In } from "typeorm";
 import DataLoader from "dataloader";
 

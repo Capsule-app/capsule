@@ -1,5 +1,5 @@
-import { SpacePost } from "../../entity/SpacePost";
-import { Space } from "../../entity/Space";
+import { SpacePost } from "../entity/SpacePost";
+import { Space } from "../entity/Space";
 import { In } from "typeorm";
 import DataLoader from "dataloader";
 

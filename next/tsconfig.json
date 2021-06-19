@@ -3,10 +3,7 @@
     "baseUrl": "src",
     "module": "esnext",
     "target": "es6",
-    "lib": [
-      "dom",
-      "esnext.asynciterable"
-    ],
+    "lib": ["dom", "esnext.asynciterable"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "preserve",
@@ -28,16 +25,12 @@
   },
   "exclude": [
     "node_modules",
-    "build",
+    ".next",
     "scripts",
     "acceptance-tests",
     "webpack",
     "jest",
     "src/setupTests.ts"
   ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

@@ -1,7 +1,7 @@
 import { Entity, PrimaryColumn, Column, BaseEntity } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
 import { User } from "./User";
-import { authorLoader } from "../modules/loaders/AuthorLoader";
+import { authorLoader } from "../loaders/AuthorLoader";
 
 @ObjectType()
 @Entity()
@@ -18,7 +18,6 @@ export class Comment extends BaseEntity {
   @Column()
   postId: string;
 
-  @Field()
   @Column()
   authorId: string;
 

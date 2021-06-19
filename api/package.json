@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "capsule-api",
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
@@ -8,7 +8,6 @@
     "dev": "ts-node-dev --respawn src/index.ts",
     "prestart": "yarn build",
     "start": "cross-env NODE_ENV=production node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist"
   },
   "dependencies": {
@@ -28,16 +27,19 @@
     "jsonwebtoken": "^8.5.1",
     "nanoid": "^3.1.23",
     "pg": "^8.6.0",
+    "pg-connection-string": "^2.5.0",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
     "typeorm": "^0.2.32"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/connect-redis": "^0.0.16",
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.11",
     "@types/express-session": "1.17.0",
     "@types/graphql": "^14.5.0",
+    "@types/ioredis": "^4.26.4",
     "@types/jsonwebtoken": "^8.5.1",
     "@types/node": "^15.6.0",
     "ts-node": "^9.1.1",

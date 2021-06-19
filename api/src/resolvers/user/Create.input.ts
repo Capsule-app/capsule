@@ -1,8 +1,8 @@
-import { IsEmail, Length, MaxLength } from "class-validator";
 import { Field, InputType } from "type-graphql";
+import { IsEmail, Length, MaxLength } from "class-validator";
 
 @InputType()
-export class RegisterInput {
+export class CreateUserInput {
   @Field()
   @MaxLength(30)
   name: string;

@@ -13,21 +13,19 @@ class LoginResponse {
 
 @Resolver()
 export class LoginResolver {
-  @Mutation(() => LoginResponse)
+  @Mutation(() => LoginResponse, { nullable: true })
   async login(
     @Arg("email") email: string,
     @Arg("password") password: string,
-    @Ctx() { req, res }: Context
+    @Ctx() { res }: Context
   ): Promise<LoginResponse | null> {
     const user = await User.findOne({ where: { email } });
-    if (!user) return null;
+    if (!user) throw new Error("Could not find a user with that email");
 
     const valid = await compare(password, user.password);
-    if (!valid) return null;
+    if (!valid) throw new Error("Incorrect password");
 
     sendRefreshToken(res, createRefreshToken(user));
-
-    req.session.userId = user.id;
 
     return {
       accessToken: createAccessToken(user),

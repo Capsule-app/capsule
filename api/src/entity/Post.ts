@@ -2,13 +2,10 @@ import { Entity, PrimaryColumn, Column, BaseEntity, ManyToMany } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
 import { User } from "./User";
 import { Comment } from "./Comment";
-import {
-  commentLoader,
-  commentCountLoader,
-} from "../modules/loaders/CommentLoader";
 import { Space } from "./Space";
-import { authorLoader } from "../modules/loaders/AuthorLoader";
-import { spaceLoader } from "../modules/loaders/SpaceLoader";
+import { authorLoader } from "../loaders/AuthorLoader";
+import { spaceLoader } from "../loaders/SpaceLoader";
+import { commentLoader, commentCountLoader } from "../loaders/CommentLoader";
 
 @ObjectType()
 @Entity()
@@ -48,7 +45,7 @@ export class Post extends BaseEntity {
   }
 
   @Field(() => Space, { nullable: true })
-  space(): Promise<Space> {
-    return spaceLoader.load(this.id);
+  async space(): Promise<Space> {
+    return await spaceLoader.load(this.id);
   }
 }

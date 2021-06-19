@@ -1,5 +1,5 @@
-import { Comment } from "../../entity/Comment";
-import { getConnection, In } from "typeorm";
+import { Comment } from "../entity/Comment";
+import { In } from "typeorm";
 import DataLoader from "dataloader";
 
 export const commentLoader = new DataLoader(async (keys: string[]) => {

@@ -1,8 +1,12 @@
 import { Entity, PrimaryColumn, Column, BaseEntity, ManyToMany } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
 import { Space } from "./Space";
-import { membershipLoader } from "../modules/loaders/MembershipLoader";
 import { Post } from "./Post";
+import { Member } from "./Member";
+// import { membershipLoader } from "../modules/loaders/MembershipLoader";
+import { RelationshipLoader } from "../loaders/RelationshipLoader";
+
+const membershipLoader = RelationshipLoader(Member, Space, "space", "userId");
 
 @ObjectType()
 @Entity()
@@ -45,7 +49,7 @@ export class User extends BaseEntity {
   FK_memberships: Promise<Space[]>;
 
   @Field(() => [Space], { nullable: true })
-  memberships(): Promise<Space[] | undefined> {
+  spaces(): Promise<Space[] | undefined> {
     return membershipLoader.load(this.id);
   }
 
