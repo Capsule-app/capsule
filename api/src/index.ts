@@ -1,22 +1,31 @@
 import "reflect-metadata";
 import dotenv from "dotenv";
 import express from "express";
-import connectRedis from "connect-redis";
-import redis from "ioredis";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import { apolloServer } from "./apollo";
 import { createConnection } from "typeorm";
 import { ormconfig } from "./ormconfig";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import session from "express-session";
 import { refreshToken } from "./auth/refreshToken";
+
+///////////////////////////////////////////////
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
 }
 
-const RedisStore = connectRedis(session as any);
+const origin =
+  process.env.NODE_ENV === "production"
+    ? "https://capsule.app/"
+    : "http://localhost:3000";
+
+const url =
+  process.env.NODE_ENV === "production"
+    ? "https://capsule.app/api"
+    : "http://localhost:4000/graphql";
+
+///////////////////////////////////////////////
 
 (async () => {
   await createConnection(ormconfig);
@@ -28,27 +37,8 @@ const RedisStore = connectRedis(session as any);
   app.use(express.urlencoded({ extended: true }));
   app.use(
     cors({
-      origin: `${
-        process.env.NODE_ENV === "production"
-          ? "https://capsule.app/"
-          : "http://localhost:3000"
-      }`,
+      origin: origin,
       credentials: true,
-    })
-  );
-
-  app.use(
-    session({
-      name: "connect",
-      store: new RedisStore({ client: new redis() }) as any,
-      secret: process.env.REFRESH_TOKEN_SECRET || "somerandomstring",
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 3600000,
-      },
     })
   );
 
@@ -57,12 +47,6 @@ const RedisStore = connectRedis(session as any);
   apollo.applyMiddleware({ app, cors: false });
 
   app.listen(4000, () => {
-    console.log(
-      `Server listening at ${
-        process.env.NODE_ENV === "production"
-          ? "https://capsule.app/api"
-          : "http://localhost:4000/graphql"
-      }`
-    );
+    console.log(`Server listening at ${url}`);
   });
 })();
