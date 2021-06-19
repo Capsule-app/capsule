@@ -1,5 +1,6 @@
 import { Space } from "./space";
 import { User } from "./user";
+import { Vote } from "./vote";
 
 export interface Post {
   id: string;
@@ -9,4 +10,5 @@ export interface Post {
   author?: User;
   authorId: string;
   space?: Space;
+  votes?: Vote[];
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Post as PostType } from "util/types/post";
 import { getPostDate } from "lib/postDate";
 import { FooterButton } from "components/post/FooterButton";
@@ -9,12 +9,27 @@ import {
   ReplyFill,
 } from "react-bootstrap-icons";
 import Link from "next/link";
+import millify from "millify";
 
 export const Post: React.FC<{ post: PostType }> = ({ post }) => {
   const date = getPostDate(post.createdAt);
 
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
+
+  const [likes, setLikes] = useState(0);
+
+  useEffect(() => {
+    if (!post.votes) return;
+
+    var votes = 0;
+    post.votes.forEach((vote) => {
+      if (vote.action) votes += 1;
+      else votes -= 1;
+    });
+
+    setLikes(votes);
+  }, [post.votes]);
 
   if (!post.author) return null;
 
@@ -24,7 +39,9 @@ export const Post: React.FC<{ post: PostType }> = ({ post }) => {
     <div className="w-full flex space-x-3 border-b-2 m:border-b-0 border-primary-100">
       <div className="flex-none flex flex-col items-center space-y-1">
         <img
-          src={post.author.avatarUrl || "/default-profile.png"}
+          src={
+            post.author.photo ? post.author.photo.url : "/default-profile.png"
+          }
           alt=""
           className="w-6.5 h-6.5 rounded-full flex-none select-none"
         />
@@ -32,7 +49,7 @@ export const Post: React.FC<{ post: PostType }> = ({ post }) => {
       <div className="space-y-1 w-full">
         <header className="flex items-center space-x-1">
           <p className="text-primary-300 text-sm">by</p>
-          <Link href={`/u/${post.author.username}`}>
+          <Link href={`/u/${post.author.username}`} passHref>
             <a className="font-bold text-sm hover:underline">
               u/{post.author.username}
             </a>
@@ -84,7 +101,7 @@ export const Post: React.FC<{ post: PostType }> = ({ post }) => {
               : "text-primary-500"
           } font-bold text-sm`}
         >
-          21k
+          {millify(likes)}
         </p>
         <button
           onClick={() => {

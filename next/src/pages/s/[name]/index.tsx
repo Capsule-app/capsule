@@ -4,12 +4,16 @@ import { Header } from "components/layouts/SpaceHeader";
 import { spaceQuery } from "lib/gql/space";
 import { Post } from "components/post/Post";
 import { Post as PostType } from "util/types/post";
-import { GetServerSideProps } from "next";
-import { initializeApollo } from "lib/apollo";
 import { OpenGraph } from "components/common/OpenGraph";
+import { useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 
-const SpacePage: React.FC<{ data: any }> = ({ data }) => {
-  if (!data) return <div>loading</div>;
+const SpacePage: React.FC = () => {
+  const router = useRouter();
+  const { name } = router.query;
+
+  const { data, loading } = useQuery(spaceQuery, { variables: { name } });
+  if (!data || loading) return null;
 
   const space = data.spaceByName;
 
@@ -48,23 +52,6 @@ const SpacePage: React.FC<{ data: any }> = ({ data }) => {
       </div>
     </Wrapper>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { name } = params as any;
-
-  const apolloClient = initializeApollo();
-
-  const { data } = await apolloClient.query({
-    query: spaceQuery,
-    variables: { name },
-  });
-
-  return {
-    props: {
-      data: data,
-    },
-  };
 };
 
 export default SpacePage;

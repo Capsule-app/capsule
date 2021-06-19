@@ -1,11 +1,20 @@
 import { gql } from "@apollo/client";
 
-export const postsQuery = gql`
-  query Posts {
-    posts {
+export const postQuery = gql`
+  query Post($id: String!) {
+    post(id: $id) {
       id
       content
       commentCount
+      comments {
+        content
+        author {
+          name
+          photo {
+            url
+          }
+        }
+      }
       votes {
         action
         authorId

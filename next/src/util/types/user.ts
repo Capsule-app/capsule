@@ -1,4 +1,6 @@
-export interface User {
+import { Photo } from "./photo";
+
+export type User = {
   name: string;
   username: string;
   avatarUrl?: string;
@@ -7,8 +9,9 @@ export interface User {
   password: string;
   id: string;
   isLoading?: boolean;
+  photo?: Photo;
   authed: boolean;
-}
+};
 
 export interface UnauthedUser {
   isLoading?: boolean;
