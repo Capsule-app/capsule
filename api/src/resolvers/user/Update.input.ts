@@ -18,4 +18,7 @@ export class UpdateUserInput {
 
   @Field({ nullable: true })
   password?: string;
+
+  @Field({ nullable: true })
+  photoId?: string;
 }

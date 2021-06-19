@@ -1,9 +1,11 @@
+import dotenv from "dotenv";
 import { ConnectionOptions } from "typeorm";
 import { parse } from "pg-connection-string";
-import dotenv from "dotenv";
 import { checkEnv } from "./checkEnv";
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 checkEnv();
 
 const config = parse(process.env.DATABASE_URL);

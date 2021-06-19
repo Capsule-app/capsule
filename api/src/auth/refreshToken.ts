@@ -5,12 +5,12 @@ import { createAccessToken } from "./createTokens";
 import { sendRefreshToken } from "./sendRefreshToken";
 
 export const refreshToken = async (req: Request, res: Response) => {
-  const token = req.cookies.qid;
+  const token = req.headers["authorization"];
   if (!token) return res.send({ ok: false, accessToken: "" });
 
   let payload: any = null;
   try {
-    payload = verify(token, process.env.REFRESH_TOKEN_SECRET!);
+    payload = verify(token, process.env.REFRESH_SECRET!);
   } catch (err) {
     return res.send({ ok: false, accessToken: "" });
   }

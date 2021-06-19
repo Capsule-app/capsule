@@ -3,8 +3,9 @@ import { Field, ID, ObjectType } from "type-graphql";
 import { Space } from "./Space";
 import { Post } from "./Post";
 import { Member } from "./Member";
-// import { membershipLoader } from "../modules/loaders/MembershipLoader";
+import { Photo } from "./Photo";
 import { RelationshipLoader } from "../loaders/RelationshipLoader";
+import { photoLoader } from "../loaders/PhotoLoader";
 
 const membershipLoader = RelationshipLoader(Member, Space, "space", "userId");
 
@@ -35,6 +36,9 @@ export class User extends BaseEntity {
   @Column("text", { default: "" })
   avatarUrl: string;
 
+  @Column({ default: "" })
+  photoId: string;
+
   @Column()
   password: string;
 
@@ -46,7 +50,7 @@ export class User extends BaseEntity {
   createdAt: string;
 
   @ManyToMany(() => Space, (space) => space.members)
-  FK_memberships: Promise<Space[]>;
+  R_memberships: Promise<Space[]>;
 
   @Field(() => [Space], { nullable: true })
   spaces(): Promise<Space[] | undefined> {
@@ -59,5 +63,10 @@ export class User extends BaseEntity {
       where: { authorId: this.id },
       order: { createdAt: "DESC" },
     });
+  }
+
+  @Field(() => Photo, { nullable: true })
+  async photo(): Promise<Photo> {
+    return await photoLoader.load(this.photoId);
   }
 }

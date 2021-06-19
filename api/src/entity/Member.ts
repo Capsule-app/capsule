@@ -16,11 +16,11 @@ export class Member extends BaseEntity {
   @PrimaryColumn()
   spaceId: string;
 
-  @ManyToOne(() => User, (user) => user.FK_memberships, { primary: true })
+  @ManyToOne(() => User, (user) => user.R_memberships, { primary: true })
   @JoinColumn({ name: "userId" })
   user: Promise<User>;
 
-  @ManyToOne(() => Space, (space) => space.FK_members, {
+  @ManyToOne(() => Space, (space) => space.R_members, {
     primary: true,
   })
   @JoinColumn({ name: "spaceId" })

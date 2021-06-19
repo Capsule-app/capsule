@@ -16,11 +16,11 @@ export class SpacePost extends BaseEntity {
   @PrimaryColumn()
   spaceId: string;
 
-  @ManyToOne(() => Post, (post) => post.FK_memberships, { primary: true })
+  @ManyToOne(() => Post, (post) => post.R_spaces, { primary: true })
   @JoinColumn({ name: "postId" })
   post: Promise<Post>;
 
-  @ManyToOne(() => Space, (space) => space.FK_members, {
+  @ManyToOne(() => Space, (space) => space.R_members, {
     primary: true,
   })
   @JoinColumn({ name: "spaceId" })

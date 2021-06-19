@@ -32,19 +32,34 @@ input CreateUserInput {
   username: String!
 }
 
+input CreateVoteInput {
+  action: Boolean!
+  postId: String!
+}
+
 type LoginResponse {
-  accessToken: String!
+  token: String!
 }
 
 type Mutation {
   createComment(data: CreateCommentInput!): Boolean!
+  createPhoto(body: String!, name: String!): Photo!
   createPost(data: CreatePostInput!): Boolean!
   createSpace(data: CreateSpaceInput!): Boolean!
   createUser(data: CreateUserInput!): Boolean!
+  createVote(data: CreateVoteInput!): Boolean!
   joinSpace(spaceId: String!): Boolean!
   login(email: String!, password: String!): LoginResponse
   revokeTokens: Boolean!
   updateUser(data: UpdateUserInput!): Boolean!
+}
+
+type Photo {
+  author: User
+  createdAt: String!
+  id: String!
+  space: [Space!]
+  url: String!
 }
 
 type Post {
@@ -56,12 +71,16 @@ type Post {
   createdAt: String!
   id: ID!
   space: Space
+  voteCount: Int
+  votes: [Vote!]
 }
 
 type Query {
   comment(id: String!): Comment!
   comments: [Comment!]!
   me: User
+  photo(id: String!): Photo!
+  photos: [Photo!]!
   post(id: String!): Post!
   posts: [Post!]!
   space(id: String!): Space!
@@ -69,6 +88,8 @@ type Query {
   user(id: String!): User!
   userByUsername(username: String!): User
   users: [User!]!
+  vote(id: String!): Vote!
+  votes: [Vote!]!
 }
 
 type Space {
@@ -80,6 +101,7 @@ type Space {
   id: ID!
   members: [User!]
   name: String!
+  photos: [Photo!]
   posts: [Post!]
 }
 
@@ -87,6 +109,7 @@ input UpdateUserInput {
   email: String
   name: String
   password: String
+  photoId: String
   username: String
 }
 
@@ -97,7 +120,15 @@ type User {
   email: String!
   id: ID!
   name: String!
+  photo: Photo
   posts: [Post!]
   spaces: [Space!]
   username: String!
+}
+
+type Vote {
+  action: Boolean!
+  authorId: String!
+  id: ID!
+  postId: String!
 }

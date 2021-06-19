@@ -1,8 +1,8 @@
 import { ApolloServer } from "apollo-server-express";
-import { generateSchema } from "./generateSchema";
+import { createSchema } from "./createSchema";
 
-export const apolloServer = async () => {
-  const schema = await generateSchema();
+export const createApolloServer = async () => {
+  const schema = await createSchema();
 
   return new ApolloServer({
     schema,

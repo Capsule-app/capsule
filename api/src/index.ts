@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import { apolloServer } from "./apollo";
+import { createApolloServer } from "./server";
 import { createConnection } from "typeorm";
 import { ormconfig } from "./ormconfig";
 import { refreshToken } from "./auth/refreshToken";
@@ -29,22 +29,17 @@ const url =
 
 (async () => {
   await createConnection(ormconfig);
-  const apollo = await apolloServer();
+  const apolloServer = await createApolloServer();
 
   const app = express();
 
   app.use(cookieParser());
   app.use(express.urlencoded({ extended: true }));
-  app.use(
-    cors({
-      origin: origin,
-      credentials: true,
-    })
-  );
+  app.use(cors({ origin: origin, credentials: true }));
 
   app.post("/refresh", (req, res) => refreshToken(req, res));
 
-  apollo.applyMiddleware({ app, cors: false });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(4000, () => {
     console.log(`Server listening at ${url}`);

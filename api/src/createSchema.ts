@@ -4,7 +4,7 @@ import { promisify } from "util";
 
 const glob = promisify(_glob);
 
-export const generateSchema = async () => {
+export const createSchema = async () => {
   const filenames = await glob(`${__dirname}/resolvers/**/*.resolver.*`);
 
   const resolvers: any = filenames

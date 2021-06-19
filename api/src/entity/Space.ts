@@ -6,9 +6,12 @@ import { SpacePost } from "./SpacePost";
 import { Post } from "./Post";
 import { authorLoader } from "../loaders/AuthorLoader";
 import { RelationshipLoader } from "../loaders/RelationshipLoader";
+import { Photo } from "./Photo";
+import { SpacePhoto } from "./SpacePhoto";
 
 const memberLoader = RelationshipLoader(Member, User, "user", "spaceId");
 const postLoader = RelationshipLoader(SpacePost, Post, "post", "spaceId");
+const photosLoader = RelationshipLoader(SpacePhoto, Photo, "photo", "spaceId");
 
 @ObjectType()
 @Entity()
@@ -38,12 +41,15 @@ export class Space extends BaseEntity {
   createdAt: string;
 
   @ManyToMany(() => Member, (member) => member.space, { onDelete: "CASCADE" })
-  FK_members: Promise<Member[]>;
+  R_members: Promise<Member[]>;
 
   @ManyToMany(() => SpacePost, (spacePost) => spacePost.space, {
     onDelete: "CASCADE",
   })
-  FK_posts: Promise<SpacePost[]>;
+  R_posts: Promise<SpacePost[]>;
+
+  @ManyToMany(() => Photo, (photo) => photo.space, { onDelete: "CASCADE" })
+  R_photos: Promise<Photo[]>;
 
   @Field(() => User, { nullable: true })
   async author(): Promise<User> {
@@ -58,5 +64,10 @@ export class Space extends BaseEntity {
   @Field(() => [Post], { nullable: true })
   async posts(): Promise<Post[]> {
     return await postLoader.load(this.id);
+  }
+
+  @Field(() => [Photo], { nullable: true })
+  async photos(): Promise<Photo[]> {
+    return await photosLoader.load(this.id);
   }
 }

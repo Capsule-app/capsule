@@ -14,7 +14,7 @@ export class CreatePostResolver {
     @Ctx() ctx: Context,
     @Arg("data") { content, spaceId }: CreatePostInput
   ): Promise<Boolean> {
-    const authorId = await getUserId(ctx);
+    const authorId = getUserId(ctx);
     const post = await Post.create({
       content,
       id: nanoid(),

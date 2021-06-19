@@ -3,8 +3,10 @@ import { Field, ID, Int, ObjectType } from "type-graphql";
 import { User } from "./User";
 import { Comment } from "./Comment";
 import { Space } from "./Space";
+import { Vote } from "./Vote";
 import { authorLoader } from "../loaders/AuthorLoader";
 import { spaceLoader } from "../loaders/SpaceLoader";
+import { voteCountLoader, voteLoader } from "../loaders/VoteLoader";
 import { commentLoader, commentCountLoader } from "../loaders/CommentLoader";
 
 @ObjectType()
@@ -27,7 +29,7 @@ export class Post extends BaseEntity {
   createdAt: string;
 
   @ManyToMany(() => Space, (space) => space.members)
-  FK_memberships: Promise<Space[]>;
+  R_spaces: Promise<Space[]>;
 
   @Field(() => User, { nullable: true })
   author(): Promise<User | null> {
@@ -45,7 +47,17 @@ export class Post extends BaseEntity {
   }
 
   @Field(() => Space, { nullable: true })
-  async space(): Promise<Space> {
-    return await spaceLoader.load(this.id);
+  space(): Promise<Space> {
+    return spaceLoader.load(this.id);
+  }
+
+  @Field(() => [Vote], { nullable: true })
+  votes(): Promise<Vote[]> {
+    return voteLoader.load(this.id);
+  }
+
+  @Field(() => Int, { nullable: true })
+  voteCount(): Promise<number> {
+    return voteCountLoader.load(this.id);
   }
 }
