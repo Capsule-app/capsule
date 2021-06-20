@@ -7,6 +7,5 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "composite": true
-  },
-  "include": ["generated/**/*.ts"]
+  }
 }
