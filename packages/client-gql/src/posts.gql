@@ -1,0 +1,30 @@
+query Posts {
+  posts {
+    id
+    content
+    commentCount
+    votes {
+      action
+      authorId
+      id
+      postId
+    }
+    createdAt
+    author {
+      id
+      name
+      username
+      bio
+      createdAt
+      email
+      photo {
+        url
+      }
+    }
+    space {
+      name
+      createdAt
+      id
+    }
+  }
+}

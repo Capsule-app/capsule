@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": ".",
+    "esModuleInterop": true,
+    "declaration": true,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "composite": true
+  },
+  "include": ["generated/**/*.ts"]
+}

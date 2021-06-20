@@ -6,7 +6,7 @@
 !.yarn/versions
 yarn-error.log
 
-node_modules/
+node_modules
 
 .next
 .vscode

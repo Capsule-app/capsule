@@ -1,0 +1,76 @@
+import React from "react";
+import { Wrapper } from "components/common/Wrapper";
+import { Header } from "components/layouts/SpaceHeader";
+import { Post } from "components/post/Post";
+import { OpenGraph } from "components/common/OpenGraph";
+import { useUserByUsernameQuery, Post as PostType } from "@capsule/client-gql";
+import millify from "millify";
+import { useRouter } from "next/router";
+
+const UserPage: React.FC = () => {
+  const router = useRouter();
+  const username = router.query.username as string;
+
+  const { data, loading } = useUserByUsernameQuery({ variables: { username } });
+
+  if (!data || loading) return null;
+
+  const user = data.userByUsername;
+  if (!user) return null;
+
+  return (
+    <Wrapper>
+      <OpenGraph
+        title={`${user.name} (@${user.username}) - Capsule`}
+        description={user.bio || "No bio yet."}
+        image={user.photo ? user.photo.url : "/default-profile.png"}
+      />
+      <Header space={user} />
+      <div className="mt-2 space-y-4">
+        <div className="flex space-x-5 font-serif">
+          <img
+            src={user.photo ? user.photo.url : "/default-profile.png"}
+            alt=""
+            className="w-10 h-10 rounded-full"
+          />
+          <div className="w-full">
+            <p className="text-2xl font-bold">{user.username}</p>
+            <p className="text-lg -mt-1">{user.name}</p>
+            {0 ? (
+              <button className="mt-2 min-w-200 py-1 rounded-full bg-primary-200 text-black font-bold">
+                Unfollow
+              </button>
+            ) : (
+              <button className="mt-2 min-w-200 py-1 rounded-full bg-blue text-white font-bold">
+                Follow
+              </button>
+            )}
+          </div>
+        </div>
+        <div className="space-y-1">
+          <div className="flex items-center space-x-1">
+            <p className="font-extrabold font-serif">
+              {user.posts ? user.posts.length : 0}
+            </p>
+            <p>post{user.posts && user.posts.length > 1 ? "s" : ""}</p>
+            <span></span>
+            <p className="font-extrabold font-serif">{millify(2500)}</p>
+            <p>follower{"s"}</p>
+            <span></span>
+            <p className="font-extrabold font-serif">{millify(100)}</p>
+            <p>following</p>
+          </div>
+          <p>{user.bio || "No bio yet."}</p>
+        </div>
+      </div>
+      <div className="mt-5 space-y-3">
+        {user.posts &&
+          user.posts.map((post: PostType) => (
+            <Post post={{ ...post, author: user as any }} key={post.id} />
+          ))}
+      </div>
+    </Wrapper>
+  );
+};
+
+export default UserPage;

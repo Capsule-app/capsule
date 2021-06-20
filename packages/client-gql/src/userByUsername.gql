@@ -1,0 +1,30 @@
+query UserByUsername($username: String!) {
+  userByUsername(username: $username) {
+    id
+    name
+    username
+    bio
+    createdAt
+    email
+    posts {
+      id
+      content
+      commentCount
+      createdAt
+      votes {
+        action
+        authorId
+        id
+        postId
+      }
+      space {
+        name
+        createdAt
+        id
+      }
+    }
+    photo {
+      url
+    }
+  }
+}

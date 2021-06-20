@@ -1,0 +1,14 @@
+overwrite: true
+schema: "../gql/schema.gql"
+documents: "./src/**/*.gql"
+generates:
+  index.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      avoidOptionals: false
+      withHooks: true
+      noGraphQLTag: true
+      skipTypename: true
