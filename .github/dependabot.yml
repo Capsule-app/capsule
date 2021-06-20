@@ -1,7 +1,6 @@
 version: 2
 updates:
-  - package-ecosystem: yarn
+  - package-ecosystem: "javascript"
     directory: "/"
     schedule:
       interval: "daily"
-    target-branch: staging
