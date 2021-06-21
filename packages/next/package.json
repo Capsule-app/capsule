@@ -15,7 +15,7 @@
     "@capsule/client-gql": "1.0.0",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
-    "graphql": "^15.5.0",
+    "graphql": "^15.5.1",
     "millify": "^4.0.0",
     "next": "^11.0.0",
     "next-transpile-modules": "^8.0.0",
