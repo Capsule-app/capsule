@@ -4,13 +4,13 @@ import { Searchbar } from "components";
 import Link from "next/link";
 
 export const Widgets: React.FC = () => {
-  const { data, loading } = useUserByUsernameQuery({
-    variables: { username: "alex" },
-  });
-  if (!data || loading) return null;
+  // const { data, loading } = useUserByUsernameQuery({
+  //   variables: { username: "alex" },
+  // });
+  // if (!data || loading) return null;
 
-  const user = data.userByUsername;
-  if (!user) return null;
+  // const user = data.userByUsername;
+  // if (!user) return null;
 
   return (
     <div className="h-screen p-2">

@@ -20,7 +20,9 @@ const HomePage: React.FC = () => {
         {posts && (
           <div className="mt-6 space-y-4">
             {posts.length > 0 &&
-              posts.map((post: PostType) => <Post key={post.id} />)}
+              posts.map((post: PostType, idx: number) => (
+                <Post key={post.id} post={post} idx={idx} />
+              ))}
           </div>
         )}
       </div>

@@ -13,6 +13,12 @@ const App: React.FC<AppProps> = ({ Component }: AppProps) => {
           href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.18.0/inter.css"
           rel="stylesheet"
         />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <Component />
     </ApolloProvider>

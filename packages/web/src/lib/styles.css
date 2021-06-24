@@ -8,6 +8,23 @@
     align-items: center;
     justify-content: center;
   }
+  .glass {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .thing {
+    -webkit-transform: rotate(1deg);
+    transform: rotate(1deg);
+    background: rgba(93, 95, 227, 0.10196078431372549);
+    padding: 2rem;
+    width: 50rem;
+    border-radius: 20px;
+    margin: 2rem auto;
+    display: flex;
+    grid-gap: 1rem;
+    gap: 1rem;
+    font-family: Nunito Sans;
+  }
 }
 
 h1,
@@ -24,6 +41,19 @@ h3,
 h4,
 p.bold {
   font-weight: 700;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  margin: 0;
 }
 
 :root {
