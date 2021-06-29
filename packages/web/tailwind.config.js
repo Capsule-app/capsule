@@ -2,26 +2,26 @@ module.exports = {
   purge: [".src/pages/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}"],
   darkMode: false,
   theme: {
-    colors: {
-      gray: {
-        100: "white",
-        200: "#dee3ea",
-        300: "var(--color-primary-200)",
-        400: "var(--color-primary-300)",
-        500: "#8f8f8f",
-        600: "#505050",
-        700: "#3d3d3d",
-        800: "#242424",
-        900: "black",
-      },
-      red: {
-        100: "red",
-      },
-      accent: {
-        DEFAULT: "#11d7ff",
-        dark: "#2F4AF7",
-      },
-    },
+    // colors: {
+    //   gray: {
+    //     100: "white",
+    //     200: "#dee3ea",
+    //     300: "var(--color-primary-200)",
+    //     400: "var(--color-primary-300)",
+    //     500: "#8f8f8f",
+    //     600: "#505050",
+    //     700: "#3d3d3d",
+    //     800: "#242424",
+    //     900: "black",
+    //   },
+    //   red: {
+    //     100: "red",
+    //   },
+    //   accent: {
+    //     DEFAULT: "#11d7ff",
+    //     dark: "#2F4AF7",
+    //   },
+    // },
     fontFamily: {
       sans: [
         "Inter",
@@ -80,6 +80,15 @@ module.exports = {
       vh: "100vh",
     },
     extend: {
+      colors: {
+        theme: {
+          600: "#6f84d3",
+          700: "#23283d",
+          800: "#1e2233",
+          900: "#111320",
+          input: "#191f2e",
+        },
+      },
       borderRadius: {
         20: "20px",
         30: "30px",
@@ -91,6 +100,8 @@ module.exports = {
         180: "180px",
         200: "200px",
         340: "340px",
+        channels: "240px",
+        widgets: "300px",
       },
       maxWidth: { 1350: "1350px" },
     },
