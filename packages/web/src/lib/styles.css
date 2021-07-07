@@ -58,34 +58,6 @@ p.bold {
 
 :root {
   font-size: 15px;
-
-  --color-button-text: #fff;
-  --color-primary-100: #f0f2f5;
-  --color-primary-200: #dee3ea;
-  --color-primary-300: #9ca3af;
-  --color-primary-400: #6b7280;
-  --color-primary-500: #404f64;
-  --color-primary-600: #323d4d;
-  --color-primary-700: #242c37;
-  --color-primary-800: #151a21;
-  --color-primary-900: #0b0e11;
-  --color-accent: #0085ff;
-  --color-accent-hover: #0081f6;
-  --color-accent-disabled: #f5bfbf;
-  --color-secondary-100: #c645bb;
-  --color-secondary-200: #9936e8;
-  --color-secondary-300: #6222d8;
-  --color-secondary-100-hover: #cc59c2;
-  --color-secondary-200-hover: #a54deb;
-  --color-secondary-ring: #d880d0;
-  --color-green-100: #00ba34;
-  --color-green-200: #00952a;
-  --color-green-300: #00701e;
-  --color-green-400: #004a15;
-  --color-red-100: #e92c2c;
-  --color-red-200: #bb2224;
-  --color-red-300: #8c1913;
-  --color-red-400: #5d1111;
 }
 
 h1 {

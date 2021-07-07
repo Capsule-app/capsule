@@ -5,3 +5,4 @@ export { Post } from "./Post";
 export { Groups } from "./Groups";
 export { Channels } from "./Channels";
 export { NewPost } from "./NewPost";
+export { DefaultAvatar } from "./DefaultAvatar";

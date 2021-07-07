@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "dev": "yarn workspace @capsule/gql dev && yarn workspace @capsule/web dev",
     "lint": "eslint . --ext ts --ext tsx"
   },
   "devDependencies": {

@@ -39,7 +39,7 @@ module.exports = {
       sm: ".875rem",
       base: "1rem",
       lg: "1.125rem",
-      xl: "1.25rem",
+      xl: "20px",
       "2xl": "1.5rem",
       "3xl": "1.875rem",
       "4xl": "2.25rem",
@@ -69,6 +69,7 @@ module.exports = {
       15: "150px",
       "5l": "10rem",
       "n1/2": "-50%",
+      16: "16rem",
       20: "20rem",
       22: "22rem",
       24: "24rem",
@@ -82,11 +83,22 @@ module.exports = {
     extend: {
       colors: {
         theme: {
+          DEFAULT: "#0199FF",
+          500: "#423f71",
           600: "#6f84d3",
           700: "#23283d",
           800: "#1e2233",
           900: "#111320",
           input: "#191f2e",
+        },
+        blue: "#2825B5",
+        main: {
+          DEFAULT: "#181828",
+          900: "#10111a",
+          800: "#12131c",
+          700: "#151823",
+          600: "#171725",
+          500: "#1d2038",
         },
       },
       borderRadius: {
@@ -99,11 +111,11 @@ module.exports = {
       minWidth: {
         180: "180px",
         200: "200px",
+        300: "300px",
         340: "340px",
-        channels: "240px",
+        channels: "320px",
         widgets: "300px",
       },
-      maxWidth: { 1350: "1350px" },
     },
   },
   variants: {

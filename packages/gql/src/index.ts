@@ -9,7 +9,7 @@ import { createConnection } from "typeorm";
 import { ormconfig } from "./ormconfig";
 import { refreshToken } from "./auth/refreshToken";
 
-///////////////////////////////////////////////
+/* --------------------------------- */
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -25,9 +25,9 @@ const url =
     ? "https://capsule.app/api"
     : "http://localhost:4000/graphql";
 
-///////////////////////////////////////////////
+/* --------------------------------- */
 
-(async () => {
+(async function main() {
   await createConnection(ormconfig);
   const apolloServer = await createApolloServer();
 
